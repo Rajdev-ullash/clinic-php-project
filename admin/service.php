@@ -21,13 +21,7 @@ while($row = mysqli_fetch_array($result))
     <td><img src="../'.$row["image"].'" width="50" height="50" /></td>
     <td>'.$row["image_alt"].'</td>
     <td>
-      <pre>';
-      $json = json_decode($row["keywords"]);
-      foreach($json as $key => $value){
-        $output1 .= '<span class="">'.$value.',</span>' 
-;
-      }
-      $output1 .= '</pre>
+      '.$row["keywords"].'
 
     </td>
     <td>'.$row["ord"].'</td>
@@ -74,7 +68,7 @@ while($row = mysqli_fetch_array($result))
             <div class="form-group">
               <label>Image</label>
               <img src="../'.$row["image"].'" width="50" height="50" />
-              <input type="file" name="simage" id="simage'.$row["sid"].'" class="form-control" />
+              <input type="file" name="simage" id="simage'.$row["sid"].'" class="form-control" value="'.$row["image"].'" />
             </div>
             <div class="form-group">
               <label>Image Alt</label>
@@ -82,12 +76,7 @@ while($row = mysqli_fetch_array($result))
             </div>
             <div class="form-group">
               <label>Keywords</label>
-              <input type="text" name="skeywords" id="skeywords'.$row["sid"].'" class="form-control" value="';
-              $json = json_decode($row["keywords"]);
-              foreach($json as $key => $value){
-                $output1 .= $value.',';
-              }
-              $output1 .= '" />
+              <input type="text" name="skeywords" id="skeywords'.$row["sid"].'" class="form-control" value="'.$row["keywords"].'" />
             </div>
             <div class="form-group">
               <label>Order</label>
@@ -255,18 +244,9 @@ while($row = mysqli_fetch_array($result))
     
       <script type="text/javascript">
 
-        //design service_keyword as enter press to add new keyword & backgroud color was badge primary
+        
 
-        $('#service_keyword').keypress(function(event){
-          var keycode = (event.keyCode ? event.keyCode : event.which);
-          if(keycode == '13'){
-            var keyword = $('#service_keyword').val();
-            var newkeyword = keyword + ",";
-            $('#service_keyword').val(newkeyword)
-            
-          }
-          
-        });
+        
         
 
      
@@ -287,12 +267,11 @@ while($row = mysqli_fetch_array($result))
         var service_description = $('#service_description').val();
         var service_image = $('#service_image').val();
         var service_image_alt = $('#service_image_alt').val();
-        //service_keyword store in array with "" and ,
-        var keyword = [];
+        
         var service_keyword = $('#service_keyword').val();
-        keyword = service_keyword.split(",");
+        
         //convert array to json
-        var service_keyword = JSON.stringify(keyword);
+      
         var service_order = $('#service_order').val();
         
         var form = $('#frm_slider_setup')[0];
@@ -336,12 +315,10 @@ while($row = mysqli_fetch_array($result))
       var service_description = $('#sdes'+id).val();
       var service_image = $('#simage'+id).val();
       var service_image_alt = $('#simage_alt'+id).val();
-      //service_keyword store in array with "" and ,
-      var keyword = [];
+      
+     
       var service_keyword = $('#skeywords'+id).val();
-      keyword = service_keyword.split(",");
-      //convert array to json
-      var service_keyword = JSON.stringify(keyword);
+    
       var service_order = $('#sorder'+id).val();
 
       if(service_image == ""){

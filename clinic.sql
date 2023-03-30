@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2023 at 11:58 PM
+-- Generation Time: Mar 30, 2023 at 08:01 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -32,6 +32,7 @@ CREATE TABLE `department` (
   `dname` varchar(50) NOT NULL,
   `description` varchar(500) NOT NULL,
   `image` varchar(100) NOT NULL,
+  `header_image` varchar(200) NOT NULL,
   `ord` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -39,11 +40,11 @@ CREATE TABLE `department` (
 -- Dumping data for table `department`
 --
 
-INSERT INTO `department` (`id`, `dname`, `description`, `image`, `ord`) VALUES
-(2, 'test', 'test-update', 'admin/images/histo.png', 1),
-(3, 'test 1', 'test 1', 'admin/images/doctorlab.png', 2),
-(4, 'test 2', 'test 2', 'admin/images/doctormol.png', 3),
-(5, 'test 3', 'test 3', 'admin/images/doctoroncoloy.png', 4);
+INSERT INTO `department` (`id`, `dname`, `description`, `image`, `header_image`, `ord`) VALUES
+(2, 'test', 'test-update', 'admin/images/histo.png', 'admin/images/histo.png', 1),
+(3, 'test 1', 'test 1', 'admin/images/doctorlab.png', 'admin/images/lab.png', 2),
+(4, 'test 2', 'test 2', 'admin/images/doctormol.png', 'admin/images/mol.png', 3),
+(5, 'test 3', 'test 3', 'admin/images/doctoroncoloy.png', 'admin/images/oncoloy.png', 4);
 
 -- --------------------------------------------------------
 
@@ -171,7 +172,7 @@ CREATE TABLE `services` (
   `des` varchar(1000) NOT NULL,
   `image` varchar(500) NOT NULL,
   `image_alt` varchar(500) NOT NULL,
-  `keywords` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`keywords`)),
+  `keywords` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `ord` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -180,7 +181,7 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`sid`, `dept`, `sname`, `des`, `image`, `image_alt`, `keywords`, `ord`) VALUES
-(4, 3, 'test-service-1', 'test-service-1-update', 'admin/images/histo-md.png', 'test-service-1', '[\"test\",\"test1\",\"test3\"]', 1);
+(4, 3, 'test-service-1', 'test-service-1-update', 'admin/images/histo-md.png', 'test-service-1', 'test', 1);
 
 -- --------------------------------------------------------
 

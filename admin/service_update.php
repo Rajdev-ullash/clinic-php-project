@@ -53,7 +53,15 @@ If(!empty($_POST)){
 		$service_order = mysqli_real_escape_string($connection, $_POST["service_order"]);
 
 		$query = "UPDATE services SET dept = '$dept_id', sname = '$service_name', des = '$service_description', image = '$target_file', image_alt = '$service_image_alt', keywords = '$service_keywords', ord = '$service_order' WHERE sid = '$id'";
-		if(mysqli_query($connection, $query)){
+		$query1 = "UPDATE services SET dept = '$dept_id', sname = '$service_name', des = '$service_description', image_alt = '$service_image_alt', keywords = '$service_keywords', ord = '$service_order' WHERE sid = '$id'";
+
+        //check simage is empty or not
+        if(empty($_FILES["simage"]["name"])){
+            $result = mysqli_query($connection, $query1);
+        }else{
+            $result = mysqli_query($connection, $query);
+        }
+        if(mysqli_query($connection, $query)){
 			echo "1";
 		}
 		else{
@@ -62,6 +70,7 @@ If(!empty($_POST)){
 			echo json_encode($output);
 			echo $output;
 		}
+		
 
 
 	}

@@ -14,6 +14,7 @@ while($row = mysqli_fetch_array($result))
   <td>'.$row["dname"].'</td>
   <td>'.$row["description"].'</td>
   <td><img src="../'.$row['image'].'" width="50" height="50" /></td>
+  <td><img src="../'.$row['header_image'].'" width="50" height="50" /></td>
   <td>'.$row["ord"].'</td>
   <td><button type="button" data-toggle="modal" data-target="#modal-item'.$row["id"].'" class="btn btn-warning btn-xs update">Update</button>
 
@@ -40,11 +41,15 @@ while($row = mysqli_fetch_array($result))
       <img src="../'.$row['image'].'" width="50" height="50" />
       <input type="file" name="dept_image" id="dept_image'.$row['id'].'" class="form-control" value="'.$row['image'].'" />
       <br />
+      <label>Header Image</label><br />
+      <input type="file" name="dept_header_image" id="dept_header_image'.$row['id'].'" class="form-control" value="'.$row['header_image'].'" />
+      <br />
       <label>Department Order</label>
       <input type="text" name="dept_order" id="dept_order'.$row["id"].'" class="form-control" value="'.$row["ord"].'" />
       <br />
       <input type="hidden" name="dept_id" id="dept_id'.$row["id"].'" value="'.$row["id"].'" />
       <input type="hidden" name="dept_image_old" id="dept_image_old'.$row["id"].'" value="'.$row["image"].'" />
+      <input type="hidden" name="dept_header_image_old" id="dept_header_image_old'.$row["id"].'" value="'.$row["header_image"].'" />
       <button type="button" onclick="update_depart_record('.$row['id'].')" name="update" id="'.$row["id"].'" class="btn btn-success btn-xs update">Update</button>
       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 
@@ -98,6 +103,7 @@ while($row = mysqli_fetch_array($result))
                       <th>Department Name</th>
                       <th>Department Description</th>
                       <th>Department Image</th>
+                      <th>Header Image</th>
                       <th>Serial No</th>
                       <th>Action</th>
                     </tr>
@@ -133,6 +139,10 @@ while($row = mysqli_fetch_array($result))
                       <div class="form-group">
                       <label  for="menu_head">DEPARTMENT IMAGE</label>
                       <input type="file" class="form-control square" id="dept_image" name="dept_image" >
+                      </div>
+                      <div class="form-group">
+                      <label  for="menu_head">HEADER IMAGE</label>
+                      <input type="file" class="form-control square" id="dept_header_image" name="dept_header_image" >
                       </div>
                       <div class="form-group">
                       <label  for="menu_head">Serial No</label>
@@ -186,6 +196,7 @@ while($row = mysqli_fetch_array($result))
       var department_name = $('#dept_name').val();
       var department_description = $('#dept_description').val();
       var department_image = $('#dept_image').val();
+      var department_header_image = $('#dept_header_image').val();
       var department_order = $('#dept_order').val();
 
       if(department_name == ""){
@@ -198,6 +209,10 @@ while($row = mysqli_fetch_array($result))
       }
       if(department_image == ""){
         alertify.error('Please Select Department Image');
+        return false;
+      }
+      if(department_header_image == ""){
+        alertify.error('Please Select Department Header Image');
         return false;
       }
       if(department_order == ""){
@@ -242,6 +257,7 @@ while($row = mysqli_fetch_array($result))
       var department_name = $('#dept_name'+id).val();
       var department_description = $('#dept_description'+id).val();
       var department_image = $('#dept_image'+id).val();
+      var department_header_image = $('#dept_header_image'+id).val();
       var department_order = $('#dept_order'+id).val();
 
       if(department_name == ""){
@@ -256,6 +272,11 @@ while($row = mysqli_fetch_array($result))
       if(department_image == ""){
         //set image dept_image_old
         var department_image = $('#dept_image_old'+id).val();
+      }
+
+      if(department_header_image == ""){
+        //set image dept_header_image_old
+        var department_header_image = $('#dept_header_image_old'+id).val();
       }
 
       if(department_order == ""){
@@ -273,6 +294,7 @@ while($row = mysqli_fetch_array($result))
       data.append('dept_name', department_name);
       data.append('dept_description', department_description);
       data.append('dept_image', department_image);
+      data.append('dept_header_image', department_header_image);
       data.append('dept_order', department_order);
 
       $.ajax({

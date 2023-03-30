@@ -8,7 +8,7 @@ $row = mysqli_fetch_array($result);
 ?>
         <!--Page Header Start-->
         <section class="page-header">
-            <div class="page-header-bg" style="background-image: url(assets/images/backgrounds/page-header-bg3.jpg)">
+            <div class="page-header-bg" style="background-image: url(<?php echo $row['header_image'];?>)">
             </div>
             <div class="page-header-shape-1"><img src="assets/images/shapes/page-header-shape-1.png" alt=""></div>
             <div class="container">
