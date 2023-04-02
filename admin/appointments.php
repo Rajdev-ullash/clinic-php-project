@@ -15,9 +15,16 @@ $output1.='<tr>';
   $output1.='<td>'.$row["phone"].'</td>';
   $output1.='<td>'.$row["doctor"].'</td>';
   $output1.='<td>'.$row["adate"].'</td>';
-  $output1.='<td>'.$row["atime"].'</td>';
+  //convert time to local format
+  $time = date("h:i A", strtotime($row["atime"]));
+  $output1.='<td>'.$time.'</td>';
    $output1.='<td>'.$row["status"].'</td>';
-  $output1.='<td><a class="btn btn-warning btn-sm" href="#">Confirm</a></td>';
+  //if status is pending then show approve button else show approved & disable buttons
+  if($row["status"]=='pending'){
+    $output1.='<td><button type="button" onclick="updateRecord('.$row['id'].')" class="btn btn-success btn-sm" >Confirm</button></td>';
+  }else{
+    $output1.='<td><button type="button" class="btn btn-success btn-sm" id="btnapprove" data-id="'.$row["id"].'" disabled>Confirmed</button></td>';
+  }
 $output1.='</tr>';
 $i++;
 }
@@ -102,7 +109,7 @@ $i++;
                       <select class="form-control rounded" id="dept" name="dept">
                          <option value="x"> -- Select a department-- </option>
                             <?php
-                                $query = "SELECT * FROM department ORDER BY department ASC";  
+                                $query = "SELECT * FROM dept ORDER BY department ASC";  
                                 $select_result = mysqli_query($connection, $query);  
                                 while($row = mysqli_fetch_array($select_result)){
                         ?>
@@ -184,119 +191,38 @@ $i++;
       $('#example').DataTable();
       } );
 
-    function addRecord() {
-   tinymce.get('history').save();
-    var name = $("#name").val();
-    var detail = $("#details").val();
-     var dept = $("#dept").val();
-    var img = $("#img").val();
+      function closemodal(){
+      $("#modal-item").modal('hide');
+      }
+
+      function updateRecord(id){
+        var id = id;
+        $.ajax({
+          url: "appointment_status.php",
+          type: "POST",
+          data: {id:id},
+          success: function(data){
+            console.log(data);
+            if(data == 1){
+              alert("Appointment status updated successfully");
+              setTimeout(function(){
+                location.reload();
+              }, 1000);
+            }
+            // else{
+            //   alert("Something went wrong");
+            // }
+          }
+        });
+      }
+
     
-   
-    //var form1 = document.forms.namedItem("frm_slider_setup");
-    //var data=new FormData(form1);
-    
 
 
 
-    if(name == ""){
-      alert("Name cannot be empty");
-       console.log('success');
-       console.log('failure');
-       return false;
-   }else if (img ==""){
-      alert("image cannot be empty");
-       console.log('success');
-       console.log('failure');
-       return false;
-    } else if (detail ==""){
-      alert("Please input details");
-       console.log('success');
-       console.log('failure');
-       return false;
-    } else if (dept =="x"){
-      alert("Please select a department");
-       console.log('success');
-       console.log('failure');
-       return false;
-    } 
-    // get values
-function save() {
-  if(window.XMLHttpRequest){
-  request = new XMLHttpRequest();
-  }
-  else
-  {
-  request = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-    var form1 = document.forms.namedItem("frm_slider_setup");   
-    var data = new FormData(form1);
-
- 
-  request.open('POST', 'doctor_insert.php', true);
-  request.onload = function () {
-  if(request.status !== 200){
-  return;
-  }
-  var return_data = request.responseText;
- alert(return_data);
-  var output1='';
-  if(return_data=="1"){
-    alertify.success('Solution Saved');
-    setTimeout(function(){location.reload()},1000);
-  }else{
-  //document.getElementById('n').style.display="block";
-  }
-  };
-  request.send(data);
-  }
-    save();
-    $('#modal-item').modal('hide');
-      return;
-    
-}
-
-      function editItem(id){
-      var id = id;
-      //  alert($('istock'+id).text());
-      var caption = $('#caption'+id).text();
       
-      
-      
-      
-      function sentDataForEdit(){
-      xmlhttp = new XMLHttpRequest();
-      var url = "solution_edit.php?id="+id+"&caption="+caption+"";
-      xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      alertify.success('Edited');
-      setTimeout(function() {
-      
-      window.location.reload();
-      }, 1000);
-      }
-      }
-      xmlhttp.open("GET",url, true);
-      xmlhttp.send();
-      }
-      sentDataForEdit();
-      }
-  
-        function deletem(id){
-          var data={"id":id}
-          $.ajax({
-             
-             method: "post",
-             url: "solution_delete.php",
-             data: data,
-             success: function(data){
-                 if(data == "1"){
-                  alertify.success('deleted');
-                  //setTimeout(function(){location.reload()},1000);
-                 }
 
-             }
-    });
-        }
+      
 
       </script>
     </body>

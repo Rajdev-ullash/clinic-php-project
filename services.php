@@ -47,54 +47,76 @@ $row = mysqli_fetch_array($result);
 
                     <h2 class="section-title__title">Available Services &amp; Tests</h2>
                 </div>
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12">
-                         <?php
-                            
-                            $squery = "SELECT * FROM services WHERE dept=$dept ORDER BY ord ASC";
-                            $sresult = mysqli_query($connection, $squery);
-                            while($srow = mysqli_fetch_array($sresult)){
-                         ?>
-                        <div class="faq-one__single">
-                            <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion-1">
-                                <div class="accrodion">
-                                    <div class="accrodion-title">
-                                        <h4><span>+</span><?php echo $srow['sname'];?></h4>
-                                    </div>
-                                    <div class="accrodion-content">
-                                        <div class="inner">
-
-                                            <ul class="list-unstyled benefits-two__points">
-                                                <?php
-                                                    $s=$srow['sid'];
-                                                    $tquery = "SELECT * FROM tests WHERE servicehead=$s ORDER BY testid ASC";
-                                                    $tresult = mysqli_query($connection, $tquery);
-                                                    while($trow = mysqli_fetch_array($tresult)){
-                                                 ?>
-                                                <li>
-                                                    <div class="icon">
-                                                        <i class="fa fa-check"></i>
-                                                    </div>
-                                                    <div class="text">
-                                                        <p><?php echo $trow['tname'];?></p>
-                                                    </div>
-                                                </li>
-                                                <?php
-                                                }
-                                                ?>
-                                            </ul>
-                                        </div><!-- /.inner -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <?php
+                            if($row['dname'] == 'Oncology'){
+                                ?>
+                                <div class="row">
+                                    <?php 
+                                        $squery = "SELECT * FROM services WHERE dept=$dept ORDER BY ord ASC";
+                                        $sresult = mysqli_query($connection, $squery);
+                                        while($srow = mysqli_fetch_array($sresult)){
+                                            ?>
+                                            <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                                                <div class="services-one__single">
+                                                    <div class="service-one__img d-flex justify-content-center">
+                                                        <img src="<?php echo $srow['image'];?>" alt="" class="img-fluid" style="height: 200px; width:250px;">
+                                                    </div>
+                                                    <div class="service-one__content">
+                                                        <!-- <div class="services-one__icon">
+                                                            <span class="icon-shield"></span>
+                                                        </div> -->
+                                                        <h2 class="service-one__title"><a href="cancer-detail.php?id=<?php echo $srow['sid'];?>"><?php echo $srow['sname'];?></a></h2>
+                                                        <p class="service-one__text text-justify"><?php echo $srow['short_des'];?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                        
+                                    ?>
+                                </div>
+                            <?php
                         }
                         ?>
+                        <?php
+                            if($row['dname'] !== 'Oncology'){
+                                ?>
+                                <div class="row">
+                                    <?php 
+                                        $squery = "SELECT * FROM services WHERE dept=$dept ORDER BY ord ASC";
+                                        $sresult = mysqli_query($connection, $squery);
+                                        while($srow = mysqli_fetch_array($sresult)){
+                                            ?>
+                                            <div class="col-md-4">
+                                                <div class="feature-four__single">
+                                                    <div class="feature-four__single-top">
+                                                        <div class="feature-four__icon">
+                                                            <!-- <span class="icon-computer"></span> -->
+                                                            <img src="<?php echo $srow['image'];?>" class="img-fluid rounded-top" alt="">
+                                                        </div>
+                                                        <h4 class="feature-four__title"><a href="test-info.php?id=<?php echo $srow['sid'];?>">
+                                                            <?php echo $srow['sname'];?>
+                                                        </a></h4>
+                                                    </div>
+                                                <p class="feature-four__text"><?php echo $srow['short_des'];?></p>
 
-                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                        
+                                    ?>
+                                </div>
+                            <?php
+                        }
+                        ?>
+                        
+                        
+
+
+                    
             
-                </div>
+              
             </div>
         </section>
         <!--FAQ One End-->

@@ -109,7 +109,7 @@
                         <div class="main-menu__wrapper-inner clearfix">
                             <div class="main-menu__left">
                                 <div class="main-menu__logo">
-                                    <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="index.php"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <div class="main-menu__main-menu-box">
                                     <div class="main-menu__main-menu-box-inner">
@@ -122,13 +122,23 @@
                                                 <a href="about.php">About us</a>
                                                 
                                             </li>
+                                            <li class="">
+                                                <a href="services.php?id=7">Cancer Care</a>  
+                                            </li>
                                             <li class="dropdown">
                                                 <a href="specialities.php">Specialities</a>
                                                 <ul>
-                                                    <li><a href="diagnostics.php">Diagnostics</a></li>
-                                                    <li><a href="molecularlab.php">Molecular Lab</a></li>
-                                                    <li><a href="histopathology.php">Hostopathology</a></li>
-                                                    <li><a href="oncology.php">Oncology</a></li>
+                                                    <?php
+                            
+                                                            $query = "SELECT * FROM department ORDER BY ord ASC";
+                                                            $select_result = mysqli_query($connection, $query);
+                                                            while($row = mysqli_fetch_array($select_result)){
+                                                    ?>
+                                                            <li><a href="services.php?id=<?php echo $row['id'];?>"><?php echo $row['dname'];?></a></li>
+                                                    <!--Services Two Single End-->
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </ul>
                                             </li>
                                             <li class="">
@@ -173,3 +183,4 @@
         <div class="stricky-header stricked-menu main-menu">
             <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
         </div><!-- /.stricky-header -->
+    

@@ -67,16 +67,22 @@ include 'header.php';
                                             <div class="comment-form__input-box">
                                                <select class="form-select my-select" name="doc" id="doc">
                                                  <option value="0">Select Doctor</option>
+                                                   
                                                    <?php
-                                                    $query = "SELECT id,name,details,dept,image,keywords,status,department FROM doctor,department ORDER BY department";
+                                                    $query = "SELECT id,name,dept,department,did FROM doctor join dept on dept.did=doctor.dept order by dept";
                                                     $result = mysqli_query($connection, $query);
-                                                    while($row = mysqli_fetch_array($result)){
-                                                        $thedoc=$row['name']." (".$row['department'].")";
-                                                    ?>
-                                                     <option value="<?php echo $row['id'];?>"><?php echo $thedoc;?></option>
-                                                    <?php
+                                                    
+                                                    while($row = mysqli_fetch_assoc($result)){
+                                                        $id = $row['id'];
+                                                        $name = $row['name'];
+                                                        $dept = $row['department'];
+                                                        
+                                            
+                                                        echo "<option value='$id'>$name ($dept)</option>";
                                                     }
+
                                                     ?>
+                                                    
                     
                                                 </select>
 
@@ -96,7 +102,7 @@ include 'header.php';
                                     <div class="row">
                                         <div class="col-xl-12">
                                             <div class="comment-form__btn-box">
-                                                <button type="button" class="thm-btn comment-form__btn" onclick="addRecord();">Request</button>
+                                                <button type="button" class="thm-btn comment-form__btn" onclick="addRecord()">Request</button>
                                             </div>
                                         </div>
                                     </div>
@@ -142,3 +148,69 @@ include 'header.php';
 <?php
 include 'footer.php';
 ?>
+
+<script type="text/javascript">
+
+        
+
+        
+        
+
+     
+      // ----------------- my functions ---------------------
+      
+        function addRecord() {
+            var name = $('#name').val();
+            var age = $('#age').val();
+            var email = $('#email').val();
+            var phone = $('#phone').val();
+            var doc = $('#doc').val();
+            var apdate = $('#adate').val();
+            var aptime = $('#atime').val();
+
+            if(name == "" || age == "" || email == "" || phone == "" || doc == "" || apdate == "" || aptime == ""){
+                alert("Please fill all the fields");
+                return;
+            }
+            
+            var form = $('#appform')[0];
+            var data = new FormData(form);
+            data.append("name", name);
+            data.append("age", age);
+            data.append("email", email);
+            data.append("phone", phone);
+            data.append("doc", doc);
+            data.append("apdate", apdate);
+            data.append("aptime", aptime);
+            
+            $.ajax({
+                type: "POST",
+                url: "appointment_insert.php",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+                    console.log("SUCCESS : ", data);
+                    // $('#success').html(data);
+                    // $('#appform')[0].reset();
+                    
+                    if(data == "1"){
+
+                        //sent a mail
+                        
+                        
+                        //redirect success.php page
+                        window.location.href = "success.php";
+                    }
+
+                },
+                error: function (e) {
+                    console.log("ERROR : ", e);
+                    $("#success").html(e);
+                }
+            });
+        }
+
+      </script>

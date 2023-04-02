@@ -17,9 +17,9 @@ while($row = mysqli_fetch_array($result))
     <td>'.$i.'</td>
     <td>'.$row["dname"].'</td>
     <td>'.$row["sname"].'</td>
+    <td>'.$row["short_des"].'</td>
     <td>'.$row["des"].'</td>
     <td><img src="../'.$row["image"].'" width="50" height="50" /></td>
-    <td>'.$row["image_alt"].'</td>
     <td>
       '.$row["keywords"].'
 
@@ -62,13 +62,17 @@ while($row = mysqli_fetch_array($result))
               <input type="text" name="sname" id="sname'.$row["sid"].'" class="form-control" value="'.$row["sname"].'" />
             </div>
             <div class="form-group">
+              <label>Short Description</label>
+              <textarea name="ssdes" id="ssdes'.$row["sid"].'" class="form-control">'.$row["short_des"].'</textarea>
+            </div>
+            <div class="form-group">
               <label>Description</label>
               <textarea name="sdes" id="sdes'.$row["sid"].'" class="form-control">'.$row["des"].'</textarea>
             </div>
             <div class="form-group">
               <label>Image</label>
               <img src="../'.$row["image"].'" width="50" height="50" />
-              <input type="file" name="simage" id="simage'.$row["sid"].'" class="form-control" value="'.$row["image"].'" />
+              <input type="file" name="simage" id="simage'.$row["sid"].'" class="form-control" />
             </div>
             <div class="form-group">
               <label>Image Alt</label>
@@ -127,7 +131,7 @@ while($row = mysqli_fetch_array($result))
           <div class="card-body">
             <div class="row ">
               <div class="col-sm-8">
-                <h3>DEPARTMENT SETUP</h3>
+                <h3>SERVICE SETUP</h3>
               </div>
               <div class="col-sm-4">
                 <button type="button" class="btn btn-success pull-right mb" id="btnaddnew" data-toggle="modal" data-target="#modal-item">Add new</button>
@@ -139,9 +143,10 @@ while($row = mysqli_fetch_array($result))
                         <th>SL</th>
                         <th>Department Name</th>
                         <th>Service Name</th>
+                        <th>Service Short Description</th>
                         <th>Service Description</th>
-                        <th>Service Image Id</th>
                         <th>Service Image</th>
+                        <!-- <th>Service Image Alt</th> -->
                         <th>Service Keywords</th>
                         <th>Service Order</th>
                         <th>Action</th>
@@ -162,7 +167,7 @@ while($row = mysqli_fetch_array($result))
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">ADD DEPARTMENT</h4>
+                <h4 class="modal-title">ADD SERVICE</h4>
               </div>
               
                <div class="modal-body">
@@ -186,6 +191,10 @@ while($row = mysqli_fetch_array($result))
                       <div class="form-group">
                         <label  for="menu_head">Service Name</label>
                         <input type="text" class="form-control" id="service_name" name="service_name" placeholder="Enter Service Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="">Service Short Description</label>
+                        <textarea class="form-control" id="service_short_description" name="service_short_description" placeholder="Enter Service Short Description"></textarea>
                       </div>
                       <div class="form-group">
                         <label for="">Service Description</label>
@@ -264,6 +273,7 @@ while($row = mysqli_fetch_array($result))
         var dept_id = $('#dept_id').val();
         console.log(dept_id);
         var service_name = $('#service_name').val();
+        var service_short_description = $('#service_short_description').val();
         var service_description = $('#service_description').val();
         var service_image = $('#service_image').val();
         var service_image_alt = $('#service_image_alt').val();
@@ -278,6 +288,7 @@ while($row = mysqli_fetch_array($result))
         var data = new FormData(form);
         data.append("dept_id", dept_id);
         data.append("service_name", service_name);
+        data.append("service_short_description", service_short_description);
         data.append("service_description", service_description);
         data.append("service_image", service_image);
         data.append("service_image_alt", service_image_alt);
@@ -312,6 +323,7 @@ while($row = mysqli_fetch_array($result))
       var id = id;
       var dept_id = $('#dept_id'+id).val();
       var service_name = $('#sname'+id).val();
+      var service_short_description = $('#ssdes'+id).val();
       var service_description = $('#sdes'+id).val();
       var service_image = $('#simage'+id).val();
       var service_image_alt = $('#simage_alt'+id).val();
@@ -321,10 +333,11 @@ while($row = mysqli_fetch_array($result))
     
       var service_order = $('#sorder'+id).val();
 
-      if(service_image == ""){
-        var service_image = $('#old_image'+id).val();
-      }
+      // if(service_image == ""){
+      //   var service_image = $('#old_image'+id).val();
+      // }
 
+      // console.log(service_short_description);
       
 
       var form = $('#service_update_form'+id)[0];
@@ -332,6 +345,7 @@ while($row = mysqli_fetch_array($result))
       data.append("sid", id);
       data.append("dept_id", dept_id);
       data.append("service_name", service_name);
+      data.append("service_short_description", service_short_description);
       data.append("service_description", service_description);
       data.append("simage", service_image);
       data.append("service_image_alt", service_image_alt);
@@ -346,7 +360,6 @@ while($row = mysqli_fetch_array($result))
           cache: false,
           timeout: 600000,
           success: function (data) {
-
               alertify.success('Updated');
               setTimeout(function() {
                   window.location.reload();

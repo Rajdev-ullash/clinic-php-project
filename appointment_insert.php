@@ -20,13 +20,33 @@ If(!empty($_POST)){
 	$query = "INSERT INTO appointment(pname,age,email,phone,doctor,adate,atime,status) VALUES ('$name','$age','$email','$phone','$doc','$adate','$atime','pending')";
 
 	if(mysqli_query($connection, $query)){
+
+
 		
-			header('Location: success.php');
+			echo "1";
+
+			
+
 	} else
 	    echo("Error description: " . mysqli_error($connection));
 			
 			//echo json_encode($output);
 			//echo $output;
 	}
+
+	//close the connection
+	mysqli_close($connection);
+
+	//sent email to admin
+	// $to = "appointment@asperiabd.com";
+	// $subject = "New Appointment";
+	// $message = "New Appointment has been made by ".$name." on ".$adate." at ".$atime." for ".$doc;
+	// $headers = "From: ".$email."
+	// Reply-To: ".$email."
+	// X-Mailer: PHP/".phpversion();
+	// mail($to, $subject, $message, $headers);
+
+	
+
 
 ?>

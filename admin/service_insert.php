@@ -10,6 +10,7 @@ If(!empty($_POST)){
     
     $dept_id = mysqli_real_escape_string($connection, $_POST["dept_id"]);
     $service_name = mysqli_real_escape_string($connection, $_POST["service_name"]);
+    $service_short_des = mysqli_real_escape_string($connection, $_POST["service_short_description"]);
     $service_description = mysqli_real_escape_string($connection, $_POST["service_description"]);
     
     //upload image
@@ -61,7 +62,7 @@ If(!empty($_POST)){
     $service_keywords = mysqli_real_escape_string($connection, $_POST["service_keyword"]);
     $service_order = mysqli_real_escape_string($connection, $_POST["service_order"]);
 
-    $query ="INSERT INTO services (dept,sname,des,image,image_alt,keywords,ord) VALUES ('$dept_id','$service_name','$service_description','$target_file','$service_image_alt','$service_keywords','$service_order')";
+    $query ="INSERT INTO services (dept,sname,short_des,des,image,image_alt,keywords,ord) VALUES ('$dept_id','$service_name','$service_short_des','$service_description','$target_file','$service_image_alt','$service_keywords','$service_order')";
 
     if(mysqli_query($connection, $query)){
         echo "1";

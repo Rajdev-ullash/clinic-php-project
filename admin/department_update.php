@@ -9,6 +9,7 @@
         $output = "";
         $dept_id = mysqli_real_escape_string($connection, $_POST["dept_id"]);
         $dept_name = mysqli_real_escape_string($connection, $_POST["dept_name"]);
+        $dept_short_des = mysqli_real_escape_string($connection, $_POST["dept_short_description"]);
         $dept_description = mysqli_real_escape_string($connection, $_POST["dept_description"]);
 
         //upload image
@@ -88,9 +89,9 @@
         //upload department header image ends
         $dept_order = mysqli_real_escape_string($connection, $_POST["dept_order"]);
 
-       $query = "UPDATE department SET dname = '$dept_name', description = '$dept_description', image = '$target_file', header_image='$target_files,' ord = '$dept_order' WHERE id = '$dept_id'";
-       $query1 = "UPDATE department SET dname = '$dept_name', description = '$dept_description', image = '$target_file', ord = '$dept_order' WHERE id = '$dept_id'";
-       $query2 = "UPDATE department SET dname = '$dept_name', description = '$dept_description', header_image = '$target_files', ord = '$dept_order' WHERE id = '$dept_id'";
+       $query = "UPDATE department SET dname = '$dept_name',short_des = '$dept_short_des', description = '$dept_description', image = '$target_file', header_image='$target_files', ord = '$dept_order' WHERE id = '$dept_id'";
+       $query1 = "UPDATE department SET dname = '$dept_name',short_des = '$dept_short_des', description = '$dept_description', image = '$target_file', ord = '$dept_order' WHERE id = '$dept_id'";
+       $query2 = "UPDATE department SET dname = '$dept_name',short_des = '$dept_short_des', description = '$dept_description', header_image = '$target_files', ord = '$dept_order' WHERE id = '$dept_id'";
 
         //check if dept_image is empty
         if(empty($_FILES["dept_image"]["name"]) || empty($_FILES["dept_header_image"]["name"])){

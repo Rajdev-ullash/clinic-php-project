@@ -8,10 +8,11 @@ die("Database connection failed".mysqli_connect_errno()."(".mysqli_connect_error
 If(!empty($_POST)){
     $output = "";
     $test_name = mysqli_real_escape_string($connection, $_POST["test_name"]);
+    $test_short_des = mysqli_real_escape_string($connection, $_POST["test_short_description"]);
     $service_id = mysqli_real_escape_string($connection, $_POST["service_id"]);
     $test_order = mysqli_real_escape_string($connection, $_POST["test_order"]);
 
-    $query = "INSERT INTO tests (tname,servicehead,tdes) VALUES ('$test_name','$service_id','$test_order')";
+    $query = "INSERT INTO tests (tname,short_des,servicehead,tdes) VALUES ('$test_name','$test_short_des','$service_id','$test_order')";
     
     if(mysqli_query($connection, $query)){
         echo "1";

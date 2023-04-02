@@ -9,10 +9,11 @@ If(!empty($_POST)){
 		$output = "";
         $id = mysqli_real_escape_string($connection, $_POST["test_id"]);
         $test_name = mysqli_real_escape_string($connection, $_POST["test_name"]);
+        $test_short_des = mysqli_real_escape_string($connection, $_POST["test_short_description"]);
         $service_id = mysqli_real_escape_string($connection, $_POST["service_id"]);
         $test_order = mysqli_real_escape_string($connection, $_POST["test_order"]);
 
-        $query = "UPDATE tests SET tname = '$test_name', servicehead = '$service_id', tdes = '$test_order' WHERE testid = '$id'";
+        $query = "UPDATE tests SET tname = '$test_name', short_des='$test_short_des', servicehead = '$service_id', tdes = '$test_order' WHERE testid = '$id'";
 
         if(mysqli_query($connection, $query)){
             echo "1";

@@ -4,26 +4,22 @@ require_once('databases.php');
 include('checkLogin.php');
 $i=1;
 $output1='';
-$query = "SELECT * FROM department ORDER BY ord ASC";
+$query = "SELECT * FROM dept ORDER BY did ASC";
 $result = mysqli_query($connection, $query);
 while($row = mysqli_fetch_array($result))
 {
  $output1 .= '
  <tr>
   <td>'.$i.'</td>
-  <td>'.$row["dname"].'</td>
-  <td>'.$row["short_des"].'</td>
-  <td>'.$row["description"].'</td>
-  <td><img src="../'.$row['image'].'" width="50" height="50" /></td>
-  <td><img src="../'.$row['header_image'].'" width="50" height="50" /></td>
-  <td>'.$row["ord"].'</td>
-  <td><button type="button" data-toggle="modal" data-target="#modal-item'.$row["id"].'" class="btn btn-warning btn-xs update">Update</button>
+  <td>'.$row["department"].'</td>
+  
+  <td><button type="button" data-toggle="modal" data-target="#modal-item'.$row["did"].'" class="btn btn-warning btn-xs update">Update</button>
 
   
-  <button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button></td>
+  <button type="button" name="delete" id="'.$row["did"].'" class="btn btn-danger btn-xs delete">Delete</button></td>
  </tr>
 
- <div class="modal fade" id="modal-item'.$row["id"].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal fade" id="modal-item'.$row["did"].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
    <div class="modal-content">
     <div class="modal-header">
@@ -31,32 +27,13 @@ while($row = mysqli_fetch_array($result))
      <h4 class="modal-title" id="myModalLabel">Update Department</h4>
     </div>
     <div class="modal-body">
-     <form method="post" id="insert_depart_update_form'.$row["id"].'" enctype="multipart/form-data">
+     <form method="post" id="insert_depart_update_form'.$row["did"].'" enctype="multipart/form-data">
       <label>Department Name</label>
-      <input type="text" name="dept_name" id="dept_name'.$row["id"].'" class="form-control" value="'.$row["dname"].'" />
+      <input type="text" name="dept_name" id="dept_name'.$row["did"].'" class="form-control" value="'.$row["department"].'" />
       <br />
-      <label>Department Short Description</label>
-      <textarea name="dept_short_description" id="dept_short_description'.$row["id"].'" class="form-control">'.$row["short_des"].'</textarea>
-      <br />
-      <label>Department Description</label>
-      <textarea name="dept_description" id="dept_description'.$row["id"].'" class="form-control">'.$row["description"].'</textarea>
-      <br />
-      <label>Department Image</label><br />
-      <img src="../'.$row['image'].'" width="50" height="50" />
-      <input type="file" name="dept_image" id="dept_image'.$row['id'].'" class="form-control" value="'.$row['image'].'" />
-      <br />
-      <label>Header Image</label><br />
-      <input type="file" name="dept_header_image" id="dept_header_image'.$row['id'].'" class="form-control" value="'.$row['header_image'].'" />
-      <br />
-      <label>Department Order</label>
-      <input type="text" name="dept_order" id="dept_order'.$row["id"].'" class="form-control" value="'.$row["ord"].'" />
-      <br />
-      <input type="hidden" name="dept_id" id="dept_id'.$row["id"].'" value="'.$row["id"].'" />
-      <input type="hidden" name="dept_image_old" id="dept_image_old'.$row["id"].'" value="'.$row["image"].'" />
-      <input type="hidden" name="dept_header_image_old" id="dept_header_image_old'.$row["id"].'" value="'.$row["header_image"].'" />
-      <button type="button" onclick="update_depart_record('.$row['id'].')" name="update" id="'.$row["id"].'" class="btn btn-success btn-xs update">Update</button>
+      <input type="hidden" name="dr_department_id" id="dr_department_id'.$row["did"].'" value="'.$row["did"].'" />
+      <button type="button" onclick="update_depart_record('.$row['did'].')" name="update" id="'.$row["did"].'" class="btn btn-success btn-xs update">Update</button>
       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-
      </form>
     </div>
    </div>
@@ -105,11 +82,6 @@ while($row = mysqli_fetch_array($result))
                     <tr>
                       <th>SL</th>
                       <th>Department Name</th>
-                      <th>Department Short Description</th>
-                      <th>Department Description</th>
-                      <th>Department Image</th>
-                      <th>Header Image</th>
-                      <th>Serial No</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -137,26 +109,7 @@ while($row = mysqli_fetch_array($result))
                       <label  for="menu_head">DEPARTMENT NAME</label>
                       <input type="text" class="form-control square" id="dept_name" name="dept_name" placeholder="Enter Department Name">
                       </div>
-                      <div class="form-group">
-                      <label  for="menu_head">DEPARTMENT SHORT DESCRIPTION</label>
-                      <textarea class="form-control square" rows="3" id="dept_short_description" name="dept_short_description" placeholder="Write Somethings About Department" ></textarea>
-                      </div>
-                      <div class="form-group">
-                      <label  for="menu_head">DEPARTMENT DESCRIPTION</label>
-                      <textarea class="form-control square" rows="5" id="dept_description" name="dept_description" placeholder="Write Somethings About Department" ></textarea>
-                      </div>
-                      <div class="form-group">
-                      <label  for="menu_head">DEPARTMENT IMAGE</label>
-                      <input type="file" class="form-control square" id="dept_image" name="dept_image" >
-                      </div>
-                      <div class="form-group">
-                      <label  for="menu_head">HEADER IMAGE</label>
-                      <input type="file" class="form-control square" id="dept_header_image" name="dept_header_image" >
-                      </div>
-                      <div class="form-group">
-                      <label  for="menu_head">Serial No</label>
-                      <input type="number" class="form-control square" id="dept_order" name="dept_order" >
-                      </div>
+                      
                       
                     <!--end form group -->
                   
@@ -203,52 +156,25 @@ while($row = mysqli_fetch_array($result))
     function addRecord() {
 
       var department_name = $('#dept_name').val();
-      var department_description = $('#dept_description').val();
-      var department_short_description = $('#dept_short_description').val();
-      var department_image = $('#dept_image').val();
-      var department_header_image = $('#dept_header_image').val();
-      var department_order = $('#dept_order').val();
 
       if(department_name == ""){
         alertify.error('Please Enter Department Name');
         return false;
       }
-      if(department_description == ""){
-        alertify.error('Please Enter Department Description');
-        return false;
-      }
-      if(department_short_description == ""){
-        alertify.error('Please Enter Department Short Description');
-        return false;
-      }
-      if(department_image == ""){
-        alertify.error('Please Select Department Image');
-        return false;
-      }
-      if(department_header_image == ""){
-        alertify.error('Please Select Department Header Image');
-        return false;
-      }
-      if(department_order == ""){
-        alertify.error('Please Enter Department Order');
-        return false;
-      }
+      
 
       var form = $('#frm_slider_setup')[0];
       var data = new FormData(form);
 
       $.ajax({
         type: "POST",
-        // enctype: 'multipart/form-data',
-        url: "department_insert.php",
+        url: "dr_department_insert.php",
         data: data,
         processData: false,
         contentType: false,
         cache: false,
         timeout: 600000,
         success: function (data) {
-          console.log(data);
-          // hide modal
           $('#modal-item').modal('hide');
           alertify.success('Added');
           setTimeout(function() {
@@ -267,65 +193,31 @@ while($row = mysqli_fetch_array($result))
 
     function update_depart_record(id){
       var id = id;
+      console.log(id);
       var department_name = $('#dept_name'+id).val();
-      var department_short_description = $('#dept_short_description'+id).val();
-      var department_description = $('#dept_description'+id).val();
-      var department_image = $('#dept_image'+id).val();
-      var department_header_image = $('#dept_header_image'+id).val();
-      var department_order = $('#dept_order'+id).val();
 
       if(department_name == ""){
         alertify.error('Please Enter Department Name');
         return false;
       }
-      if(department_short_description == ""){
-        alertify.error('Please Enter Department Short Description');
-        return false;
-      }
-      if(department_description == ""){
-        alertify.error('Please Enter Department Description');
-        return false;
-      }
-
-      if(department_image == ""){
-        //set image dept_image_old
-        var department_image = $('#dept_image_old'+id).val();
-      }
-
-      if(department_header_image == ""){
-        //set image dept_header_image_old
-        var department_header_image = $('#dept_header_image_old'+id).val();
-      }
-
-      if(department_order == ""){
-        alertify.error('Please Enter Department Order');
-        return false;
-      }
-
-      //validation
-
       
 
       var form = $('#insert_depart_update_form'+id)[0];
       var data = new FormData(form);
       data.append('dept_id', id);
       data.append('dept_name', department_name);
-      data.append('dept_short_description', department_short_description);
-      data.append('dept_description', department_description);
-      data.append('dept_image', department_image);
-      data.append('dept_header_image', department_header_image);
-      data.append('dept_order', department_order);
+     
 
       $.ajax({
         type: "POST",
-        url: "department_update.php",
+        url: "dr_department_update.php",
         data: data,
         processData: false,
         contentType: false,
         cache: false,
         timeout: 600000,
         success: function (data) {
-  
+          console.log(data);
           // hide modal
           $('#modal-item').modal('hide');
           alertify.success('Updated');

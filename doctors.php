@@ -34,7 +34,7 @@ include 'header.php';
                         <option value="x">Filter by department</option>
                          <?php
                             
-                            $query = "SELECT * FROM department ORDER BY department";
+                            $query = "SELECT * FROM dept ORDER BY department";
                             $result = mysqli_query($connection, $query);
                             while($row = mysqli_fetch_array($result)){
                             ?>
@@ -60,12 +60,7 @@ include 'header.php';
                     <!--Team One Single Start-->
                     <div class="col-xl-3 col-lg-3 col-md-6  wow fadeInUp" data-wow-delay="100ms">
                         <div class="team-one__single">
-                            <div class="team-one__img">
-                                <div class="team-one__img-box">
-                                  <img src="admin/<?php echo $dcrow['image'] ?>" alt="">
-                                </div>
-                               
-                            </div>
+                            
                             <div class="team-one__content">
                                 <h3 class="team-one__name"><a href="doctor-profile.php?id=<?php echo $dcrow['id'] ?>"><?php echo $dcrow['name'] ?></a></h3>
                                 <p class="team-one__sub-title"><?php echo $dcrow['details'] ?></p>

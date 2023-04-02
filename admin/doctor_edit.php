@@ -3,7 +3,7 @@ include_once('header.php');
 require_once('databases.php');
 include('checkLogin.php');
 $doctor = $_GET['id'];
-$query = "SELECT id,name,details,dept,history,image,keywords,status FROM doctor WHERE id=$doctor ORDER BY id DESC";
+$query = "SELECT id,name,details,dept,history,keywords,status FROM doctor WHERE id=$doctor ORDER BY id DESC";
 $select_result = mysqli_query($connection, $query);
 $drow = mysqli_fetch_array($select_result);
 ?>
@@ -57,7 +57,7 @@ $drow = mysqli_fetch_array($select_result);
                       <select class="form-control rounded" id="dept" name="dept">
                         
                             <?php
-                                $query = "SELECT * FROM department ORDER BY department ASC";  
+                                $query = "SELECT * FROM dept ORDER BY department ASC";  
                                 $select_result = mysqli_query($connection, $query);  
                                 while($xrow = mysqli_fetch_array($select_result)){
                                    if( $drow['dept'] ==  $xrow['did']){
@@ -84,9 +84,9 @@ $drow = mysqli_fetch_array($select_result);
                         </div>
                     
                       
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                          <input type="file" id="img" class="form-control square" name="img">
-                        </div>
+                        </div> -->
                       <!--end form group -->
                                                 <!--end form group -->
                         <div class="form-group">   
@@ -109,10 +109,10 @@ $drow = mysqli_fetch_array($select_result);
                         <button type="button" class="btn btn-warning" onclick="addRecord();">Update</button>&nbsp;&nbsp;<button type="submit" class="btn btn-danger">Delete</button>
 
               </div>
-                <div class="col-sm-4">
+                <!-- <div class="col-sm-4">
                   <div class="row">
                   <img class="img-responsive" src="<?php echo $drow['image'] ?>" style="width:250px;">
-                </div>
+                </div> -->
                 </div>
              </div> 
             </div>
@@ -156,17 +156,14 @@ $drow = mysqli_fetch_array($select_result);
     var name = $("#name").val();
     var detail = $("#detail").val();
      var dept = $("#dept").val();
-    var img = $("#img").val();
+    // var img = $("#img").val();
     
    if(name == ""){
       alert("Name cannot be empty");
        console.log('success');
        console.log('failure');
        return false;
-   }else if (img ==""){
-      alert("No image added. Updating without image");
-      
-    } else if (detail ==""){
+   }else if (detail ==""){
       alert("Please input details");
        console.log('success');
        console.log('failure');

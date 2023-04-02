@@ -10,6 +10,7 @@ If(!empty($_POST)){
 		$id = mysqli_real_escape_string($connection, $_POST["sid"]);
 		$dept_id = mysqli_real_escape_string($connection, $_POST["dept_id"]);
 		$service_name = mysqli_real_escape_string($connection, $_POST["service_name"]);
+        $service_short_des = mysqli_real_escape_string($connection, $_POST["service_short_description"]);
 		$service_description = mysqli_real_escape_string($connection, $_POST["service_description"]);
 
 	 	//upload image
@@ -52,8 +53,8 @@ If(!empty($_POST)){
 		$service_keywords = mysqli_real_escape_string($connection, $_POST["service_keyword"]);
 		$service_order = mysqli_real_escape_string($connection, $_POST["service_order"]);
 
-		$query = "UPDATE services SET dept = '$dept_id', sname = '$service_name', des = '$service_description', image = '$target_file', image_alt = '$service_image_alt', keywords = '$service_keywords', ord = '$service_order' WHERE sid = '$id'";
-		$query1 = "UPDATE services SET dept = '$dept_id', sname = '$service_name', des = '$service_description', image_alt = '$service_image_alt', keywords = '$service_keywords', ord = '$service_order' WHERE sid = '$id'";
+		$query = "UPDATE services SET dept = '$dept_id', short_des = '$service_short_des' ,sname = '$service_name', des = '$service_description', image = '$target_file', image_alt = '$service_image_alt', keywords = '$service_keywords', ord = '$service_order' WHERE sid = '$id'";
+		$query1 = "UPDATE services SET dept = '$dept_id', sname = '$service_name',short_des = '$service_short_des', des = '$service_description', image_alt = '$service_image_alt', keywords = '$service_keywords', ord = '$service_order' WHERE sid = '$id'";
 
         //check simage is empty or not
         if(empty($_FILES["simage"]["name"])){

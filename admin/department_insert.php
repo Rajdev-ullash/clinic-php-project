@@ -8,6 +8,7 @@ die("Database connection failed".mysqli_connect_errno()."(".mysqli_connect_error
 If(!empty($_POST)){
 	$output = "";
 	$dept_name = mysqli_real_escape_string($connection, $_POST["dept_name"]);
+	$dept_short_des = mysqli_real_escape_string($connection, $_POST["dept_short_description"]);
 	$dept_description = mysqli_real_escape_string($connection, $_POST["dept_description"]);
 
 
@@ -110,7 +111,7 @@ If(!empty($_POST)){
 
 
 
-	$query = "INSERT INTO department (dname, description, image,header_image, ord) VALUES ('$dept_name', '$dept_description', '$target_file', '$target_files','$dept_order')";
+	$query = "INSERT INTO department (dname,short_des, description, image,header_image, ord) VALUES ('$dept_name','$dept_short_des', '$dept_description', '$target_file', '$target_files','$dept_order')";
 
 	if(mysqli_query($connection, $query)){
 		

@@ -2,7 +2,7 @@
 require_once('admin/databases.php');
 include 'header.php';
 $dr = $_GET['id'];
-$query = "SELECT id,name,details,dept,history,image,keywords,status,department FROM doctor,department WHERE dept=did AND id=$dr";
+$query = "SELECT id,name,details,dept,history,keywords,status,department FROM doctor,dept WHERE dept=did AND id=$dr";
 $result = mysqli_query($connection, $query);
 $row = mysqli_fetch_array($result);
 ?>
@@ -33,7 +33,7 @@ $row = mysqli_fetch_array($result);
                         <div class="col-xl-6 col-lg-6">
                             <div class="team-details__top-left">
                                 <div class="team-details__top-img">
-                                     <img src="admin/<?php echo $row['image'] ?>" alt="">
+                                     <!-- <img src="admin/" alt=""> -->
                                    <!--  <div class="team-details__big-text">jessica</div> -->
                                 </div>
                             </div>

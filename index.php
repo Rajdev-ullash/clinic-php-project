@@ -22,7 +22,7 @@ include 'header.php';
 
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background-image: url(assets/images/backgrounds/main-slider-1-1.jpg);"></div>
+                            style="background-image: url(assets/images/backgrounds/slider1.jpg);"></div>
                         <!-- /.image-layer -->
 
                         <div class="main-slider-shape-1 float-bob-x">
@@ -33,8 +33,8 @@ include 'header.php';
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="main-slider__content">
-                                        <h2 class="main-slider__title">World class<br> healthcare <br> for
-                                            <span>everyone.</span></h2>
+                                        <h2 class="main-slider__title">First Oncology Solution & <br> Chemotherapy Daycare <br> in
+                                            <span>Chattogram.</span></h2>
                                        
                                         <div class="main-slider__btn-box">
                                             <a href="#" class="thm-btn main-slider__btn">Let’s Get Started</a>
@@ -47,7 +47,7 @@ include 'header.php';
 
                     <div class="swiper-slide">
                         <div class="image-layer"
-                            style="background-image: url(assets/images/backgrounds/main-slider-1-2.jpg);"></div>
+                            style="background-image: url(assets/images/backgrounds/slider2.jpg);"></div>
                         <!-- /.image-layer -->
 
                         <div class="main-slider-shape-1 float-bob-x">
@@ -58,8 +58,8 @@ include 'header.php';
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="main-slider__content">
-                                        <h2 class="main-slider__title">Super specilized<br> Cencer screening <br> now in
-                                            <span>Chattogram.</span></h2>
+                                        <h2 class="main-slider__title">Super Specialty <br> Laboratory <br> for High Accuracy
+                                            <span>Diagnosis.</span></h2>
                                       
                                         <div class="main-slider__btn-box">
                                             <a href="about.html" class="thm-btn main-slider__btn">Let’s Get Started</a>
@@ -70,30 +70,7 @@ include 'header.php';
                         </div>
                     </div>
 
-                    <div class="swiper-slide">
-                        <div class="image-layer"
-                            style="background-image: url(assets/images/backgrounds/main-slider-1-3.jpg);"></div>
-                        <!-- /.image-layer -->
-
-                        <div class="main-slider-shape-1 float-bob-x">
-                            <img src="assets/images/shapes/main-slider-shape-1.png" alt="">
-                        </div>
-
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="main-slider__content">
-                                        <h2 class="main-slider__title">Afforable <br> healthcare packages <br> for your
-                                            <span>family.</span></h2>
-                                       
-                                        <div class="main-slider__btn-box">
-                                            <a href="about.html" class="thm-btn main-slider__btn">Let’s Get Started</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                 </div>
 
@@ -201,16 +178,19 @@ include 'header.php';
                             $select_result = mysqli_query($connection, $query);
                             while($row = mysqli_fetch_array($select_result)){
                     ?>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="services-two__single">
-                            <div class="services-two__icon-box">
-                                <div class="services-two__icon">
-                                   <img src="<?php echo $row['image'];?>">
+                    <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                            <div class="services-one__single">
+                                <div class="service-one__img d-flex justify-content-center">
+                                    <img src="<?php echo $row['image'];?>" alt="" class="img-fluid" style="height: 120px; width:110px;">
+                                </div>
+                                <div class="service-one__content">
+                                    <!-- <div class="services-one__icon">
+                                        <span class="icon-shield"></span>
+                                    </div> -->
+                                    <h2 class="service-one__title"><a href="services.php?id=<?php echo $row['id'];?>"><?php echo $row['dname'];?></a></h2>
+                                    <p class="service-one__text text-justify"><?php echo $row['short_des'];?></p>
                                 </div>
                             </div>
-                            <h3 class="services-two__title"><a href="services.php?id=<?php echo $row['id'];?>"><?php echo $row['dname'];?></a></h3>
-                            <p class="services-two__text"><?php echo $row['description'];?></p>
-                        </div>
                     </div>
                     <!--Services Two Single End-->
                     <?php
@@ -490,12 +470,12 @@ include 'header.php';
                             ?>
                     <div class="col-xl-3 col-lg-3 wow fadeInUp" data-wow-delay="100ms">
                         <div class="team-one__single">
-                            <div class="team-one__img">
+                            <!-- <div class="team-one__img">
                                 <div class="team-one__img-box">
-                                    <img src="admin/<?php echo $dcrow['image'] ?>" alt="">
+                                    <img src="admin/" alt="">
                                 </div>
                                
-                            </div>
+                            </div> -->
                             <div class="team-one__content">
                               <h3 class="team-one__name"><a href="doctor-profile.php?id=<?php echo $dcrow['id'] ?>"><?php echo $dcrow['name'] ?></a></h3>
                                 <p class="team-one__sub-title"><?php echo $dcrow['details'] ?></p>
@@ -516,35 +496,58 @@ include 'header.php';
   
 
         <!--News One Start-->
-        <section class="news-one">
+        <?php
+                            
+            $dcquery = "SELECT * FROM news WHERE is_home_page=1";
+            $dcresult = mysqli_query($connection, $dcquery);
+                            //check length of dcresult is > 0
+            if(mysqli_num_rows($dcresult) > 0){
+                                
+        ?>
+              <section class="news-one">
             <div class="container">
-                <div class="section-title text-center">
-                    <div class="section-sub-title-box">
-                        <p class="section-sub-title">recent news feed</p>
-                        <div class="section-title-shape-1">
-                            <img src="assets/images/shapes/section-title-shape-1.png" alt="">
-                        </div>
-                        <div class="section-title-shape-2">
-                            <img src="assets/images/shapes/section-title-shape-2.png" alt="">
-                        </div>
-                    </div>
-                    <h2 class="section-title__title">Latest news & articles <br> from the blog</h2>
-                </div>
+                <?php
+                            
+                            $dcquery = "SELECT * FROM news WHERE is_home_page=1";
+                            $dcresult = mysqli_query($connection, $dcquery);
+                            //check length of dcresult is > 0
+                            if(mysqli_num_rows($dcresult) > 0){
+                                
+                            ?>
+                            <div class="section-title text-center">
+                                <div class="section-sub-title-box">
+                                    <p class="section-sub-title">recent news feed</p>
+                                    <div class="section-title-shape-1">
+                                        <img src="assets/images/shapes/section-title-shape-1.png" alt="">
+                                    </div>
+                                    <div class="section-title-shape-2">
+                                        <img src="assets/images/shapes/section-title-shape-2.png" alt="">
+                                    </div>
+                                </div>
+                                <h2 class="section-title__title">Latest news & articles <br> from the blog</h2>
+                            </div>
+                    
+                            <?php
+                            
+                                    }
+                            ?>
                 <div class="row">
                     <!--News One Single Start-->
                     <?php
                             
                             $dcquery = "SELECT * FROM news WHERE is_home_page=1";
                             $dcresult = mysqli_query($connection, $dcquery);
-                            while($dcrow = mysqli_fetch_array($dcresult)){
+                            //check length of dcresult is > 0
+                            if(mysqli_num_rows($dcresult) > 0){
+                                while($dcrow = mysqli_fetch_array($dcresult)){
                             ?>
                     <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="100ms">
                         <div class="news-one__single">
                             <div class="news-one__img">
                                 <img src="./<?php echo $dcrow['image'] ?> " alt="">
-                                <div class="news-one__tag">
+                                <!-- <div class="news-one__tag">
                                     <p><i class="far fa-folder"></i>BUSINESS</p>
-                                </div>
+                                </div> -->
                                 <div class="news-one__arrow-box">
                                     <a href="news-details.php?id=<?php echo $dcrow['id'] ?>" class="news-one__arrow">
                                         <span class="icon-right-arrow1"></span>
@@ -568,106 +571,18 @@ include 'header.php';
                     </div>
                     <?php
                     }
+                            }
                     ?>
                             
-                    <!-- <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="100ms"></div>
-                        <div class="news-one__single">
-                            <div class="news-one__img">
-                                <img src="assets/images/blog/news-1-1.jpg" alt="">
-                                <div class="news-one__tag">
-                                    <p><i class="far fa-folder"></i>BUSINESS</p>
-                                </div>
-                                <div class="news-one__arrow-box">
-                                    <a href="news-details.html" class="news-one__arrow">
-                                        <span class="icon-right-arrow1"></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="news-one__content">
-                                <ul class="list-unstyled news-one__meta">
-                                    <li><a href="news-details.html"><i class="far fa-calendar"></i> 15 March, 2022 </a>
-                                    </li>
-                                    <li><a href="news-details.html"><i class="far fa-comments"></i> 02 Comments</a>
-                                    </li>
-                                </ul>
-                                <h3 class="news-one__title"><a href="news-details.html">Which allows you to pay down
-                                        insurance bills</a></h3>
-                                <p class="news-one__text">Aliquam viverra arcu. Donec aliquet blandit enim feugiat
-                                    mattis.</p>
-                                <div class="news-one__read-more">
-                                    <a href="news-details.html">Read More <i class="fas fa-angle-double-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!--News One Single End-->
-                    <!--News One Single Start-->
-                    <!-- <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="200ms">
-                        <div class="news-one__single">
-                            <div class="news-one__img">
-                                <img src="assets/images/blog/news-1-2.jpg" alt="">
-                                <div class="news-one__tag">
-                                    <p><i class="far fa-folder"></i>BUSINESS</p>
-                                </div>
-                                <div class="news-one__arrow-box">
-                                    <a href="news-details.html" class="news-one__arrow">
-                                        <span class="icon-right-arrow1"></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="news-one__content">
-                                <ul class="list-unstyled news-one__meta">
-                                    <li><a href="news-details.html"><i class="far fa-calendar"></i> 15 March, 2022 </a>
-                                    </li>
-                                    <li><a href="news-details.html"><i class="far fa-comments"></i> 02 Comments</a>
-                                    </li>
-                                </ul>
-                                <h3 class="news-one__title"><a href="news-details.html">Leverage agile frameworks to
-                                        provide</a></h3>
-                                <p class="news-one__text">Aliquam viverra arcu. Donec aliquet blandit enim feugiat
-                                    mattis.</p>
-                                <div class="news-one__read-more">
-                                    <a href="news-details.html">Read More <i class="fas fa-angle-double-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!--News One Single End-->
-                    <!--News One Single Start-->
-                    <!-- <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="300ms">
-                        <div class="news-one__single">
-                            <div class="news-one__img">
-                                <img src="assets/images/blog/news-1-3.jpg" alt="">
-                                <div class="news-one__tag">
-                                    <p><i class="far fa-folder"></i>BUSINESS</p>
-                                </div>
-                                <div class="news-one__arrow-box">
-                                    <a href="news-details.html" class="news-one__arrow">
-                                        <span class="icon-right-arrow1"></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="news-one__content">
-                                <ul class="list-unstyled news-one__meta">
-                                    <li><a href="news-details.html"><i class="far fa-calendar"></i> 15 March, 2022 </a>
-                                    </li>
-                                    <li><a href="news-details.html"><i class="far fa-comments"></i> 02 Comments</a>
-                                    </li>
-                                </ul>
-                                <h3 class="news-one__title"><a href="news-details.html">Bring to the table win-win
-                                        survival strategis</a></h3>
-                                <p class="news-one__text">Aliquam viverra arcu. Donec aliquet blandit enim feugiat
-                                    mattis.</p>
-                                <div class="news-one__read-more">
-                                    <a href="news-details.html">Read More <i class="fas fa-angle-double-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!--News One Single End-->
+                   
                 </div>
             </div>
-        </section>
+        </section>              
+                    
+        <?php
+                            
+            }
+        ?>
         <!--News One End-->
 
         <!--Tracking Start-->

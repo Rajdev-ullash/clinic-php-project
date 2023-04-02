@@ -13,6 +13,7 @@ while($row = mysqli_fetch_array($result))
     <tr>
     <td>'.$i.'</td>
     <td>'.$row["tname"].'</td>
+    <td>'.$row["short_des"].'</td>
     <td>'.$row["sname"].'</td>
     <td>'.$row["tdes"].'</td>
     <td><button type="button" data-toggle="modal" data-target="#modal-item'.$row["testid"].'" class="btn btn-warning btn-xs update">Update</button>
@@ -33,6 +34,10 @@ while($row = mysqli_fetch_array($result))
                 <div class="form-group">
                 <label>Test Name</label>
                 <input type="text" name="tname" id="tname'.$row["testid"].'" class="form-control" value="'.$row["tname"].'" required />
+                </div>
+                <div class="form-group">
+                  <label>Test Short Description</label>
+                   <textarea name="test_short_description" id="test_short_description'.$row["testid"].'" class="form-control">'.$row["short_des"].'</textarea>
                 </div>
                 <div class="form-group">
                 <label>Service Head</label>
@@ -101,7 +106,7 @@ while($row = mysqli_fetch_array($result))
           <div class="card-body">
             <div class="row ">
               <div class="col-sm-8">
-                <h3>DEPARTMENT SETUP</h3>
+                <h3>TEST SETUP</h3>
               </div>
               <div class="col-sm-4">
                 <button type="button" class="btn btn-success pull-right mb" id="btnaddnew" data-toggle="modal" data-target="#modal-item">Add new</button>
@@ -111,8 +116,9 @@ while($row = mysqli_fetch_array($result))
                   <thead>
                     <tr>
                         <th>SL</th>
-                        <th>Service Name</th>
                         <th>Test Name</th>
+                        <th>Test Short Description</th>
+                        <th>Service Name</th>
                         <th>Test Order</th>
                         <th>Action</th>
                     </tr>
@@ -139,6 +145,10 @@ while($row = mysqli_fetch_array($result))
                       <div class="form-group">
                         <label  for="menu_head">Test Name</label>
                         <input type="text" class="form-control" id="test_name" name="test_name" placeholder="Enter Test Name">
+                      </div>
+                      <div class="form-group">
+                        <label  for="menu_head">TEST SHORT DESCRIPTION</label>
+                        <textarea class="form-control square" rows="5" id="test_short_description" name="test_short_description" placeholder="Write Somethings About This Test" ></textarea>
                       </div>
                     
                       <div class="form-group">
@@ -210,6 +220,7 @@ while($row = mysqli_fetch_array($result))
     function addRecord() {
 
         var test_name = $("#test_name").val();
+        var test_description = $("#test_short_description").val();
 
         var service_id = $("#service_id").val();
 
@@ -225,6 +236,7 @@ while($row = mysqli_fetch_array($result))
             var form = $('#frm_slider_setup')[0];
             var data = new FormData(form);
             data.append("test_name", test_name);
+            data.append("test_description", test_description);
             data.append("service_id", service_id);
             data.append("test_order", test_order);
             $.ajax({
@@ -255,6 +267,7 @@ while($row = mysqli_fetch_array($result))
     function update_test_record(id){
         var id = id;
         var test_name = $("#tname"+id).val();
+        var test_short_description = $("#test_short_description"+id).val();
         var service_id = $("#servicehead"+id).val();
         var test_order = $("#tdes"+id).val();
 
@@ -262,6 +275,7 @@ while($row = mysqli_fetch_array($result))
         var data = new FormData(form);
         data.append("test_id", id);
         data.append("test_name", test_name);
+        data.append("test_short_description", test_short_description);
         data.append("service_id", service_id);
         data.append("test_order", test_order);
         $.ajax({

@@ -4,7 +4,7 @@ require_once('databases.php');
 include('checkLogin.php');
 $i=1;
 $output1='';
-$query = "SELECT id,name,details,dept,image,keywords,status,department FROM doctor,department WHERE dept=did ORDER BY id DESC";
+$query = "SELECT id,name,details,dept,keywords,status,department FROM doctor,dept WHERE dept=did ORDER BY id DESC";
 $select_result = mysqli_query($connection, $query);
 while($row = mysqli_fetch_array($select_result)){
 
@@ -13,7 +13,6 @@ $output1.='<tr>';
   $output1.='<td>'.$row["name"].'</td>';
   $output1.='<td>'.$row["details"].'</td>';
   $output1.='<td>'.$row["department"].'</td>';
-  $output1.='<td>'.$row["image"].'</td>';
   $output1.='<td>'.$row["keywords"].'</td>';
   $output1.='<td>'.$row["status"].'</td>';
   $output1.='<td><a class="btn btn-warning btn-sm" href="doctor_edit.php?id='.$row["id"].'"><i class="icon-edit"></i></a></td>';
@@ -62,7 +61,6 @@ $i++;
                       <th width="20%">Name</th>
                       <th width="20%">Detail</th>
                       <th width="10%">Department</th>
-                       <th width="10%">Image</th>
                         <th width="15%">Keywords</th>
                          <th width="10%">Status</th>
                           <th width="5%">Action</th>
@@ -100,7 +98,7 @@ $i++;
                       <select class="form-control rounded" id="dept" name="dept">
                          <option value="x"> -- Select a department-- </option>
                             <?php
-                                $query = "SELECT * FROM department ORDER BY department ASC";  
+                                $query = "SELECT * FROM dept ORDER BY department ASC";  
                                 $select_result = mysqli_query($connection, $query);  
                                 while($row = mysqli_fetch_array($select_result)){
                         ?>
@@ -121,9 +119,9 @@ $i++;
                         </div>
                     
                       
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                          <input type="file" id="img" class="form-control square" name="img">
-                        </div>
+                        </div> -->
                       <!--end form group -->
                                                 <!--end form group -->
                         <div class="form-group">   
@@ -188,7 +186,7 @@ $i++;
     var name = $("#name").val();
     var detail = $("#details").val();
      var dept = $("#dept").val();
-    var img = $("#img").val();
+    // var img = $("#img").val();
     
    
     //var form1 = document.forms.namedItem("frm_slider_setup");
@@ -202,12 +200,7 @@ $i++;
        console.log('success');
        console.log('failure');
        return false;
-   }else if (img ==""){
-      alert("image cannot be empty");
-       console.log('success');
-       console.log('failure');
-       return false;
-    } else if (detail ==""){
+   } else if (detail ==""){
       alert("Please input details");
        console.log('success');
        console.log('failure');
@@ -240,6 +233,7 @@ function save() {
  alert(return_data);
   var output1='';
   if(return_data=="1"){
+    console.log(return_data);
     alertify.success('Solution Saved');
     setTimeout(function(){location.reload()},1000);
   }else{
