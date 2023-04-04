@@ -14,6 +14,9 @@ If(!empty($_POST)){
 	$keywords = mysqli_real_escape_string($connection, $_POST["keywords"]);
     $status = mysqli_real_escape_string($connection, $_POST["status"]);
     $history = mysqli_real_escape_string($connection, $_POST["history"]);
+	$cons_day = mysqli_real_escape_string($connection, $_POST["cons_day"]);
+	$cons_time = mysqli_real_escape_string($connection, $_POST["cons_time"]);
+	$cons_dept_id = mysqli_real_escape_string($connection, $_POST["cons_dept_id"]);
 
 	/* ----------- IMAGE UPLOAD ------------------*/
 		// $dirpath="images/doctor/";
@@ -89,7 +92,7 @@ If(!empty($_POST)){
 
 // 		$query = "UPDATE doctor SET name='$name',details='$detail',dept='$dept',history='$history',keywords='$keywords', status='$status' WHERE id='$id'";
 // 	}
-$query = "UPDATE doctor SET name='$name',details='$detail',dept='$dept',history='$history',keywords='$keywords', status='$status' WHERE id='$id'";
+$query = "UPDATE doctor SET name='$name',details='$detail',dept='$dept',history='$history',keywords='$keywords', status='$status', cons_day = '$cons_day', cons_time = '$cons_time', cons_dept_id = '$cons_dept_id' WHERE id='$id'";
 	
 echo $query;
 echo "<br>";

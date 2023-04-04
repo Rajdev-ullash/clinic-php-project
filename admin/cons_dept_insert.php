@@ -1,0 +1,77 @@
+<?php
+include_once('databases.php');
+//var_dump($_POST,$_FILES);exit;
+if(mysqli_connect_errno()) {
+die("Database connection failed".mysqli_connect_errno()."(".mysqli_connect_error().")");
+}
+
+If(!empty($_POST)){
+	$output = "";
+	$dept_name = mysqli_real_escape_string($connection, $_POST["dept_name"]);
+    //generate a slug for the department name
+    $dept_slug = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $dept_name));
+
+	$dept_about_des = mysqli_real_escape_string($connection, $_POST["dept_about_description"]);
+	$dept_description = mysqli_real_escape_string($connection, $_POST["dept_description"]);
+
+	//upload the description image
+
+	//upload image
+	$target_dir = "admin/images/";
+	$target_file = $target_dir . basename($_FILES["cons_dept_image"]["name"]);
+	$uploadOk = 1;
+	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+	// Check if image file is a actual image or fake image
+
+	$check = getimagesize($_FILES["cons_dept_image"]["tmp_name"]);
+	if($check !== false) {
+		//echo "File is an image - " . $check["mime"] . ".";
+		$uploadOk = 1;
+	} else {
+		//echo "File is not an image.";
+		$uploadOk = 0;
+	}
+
+	// Check if file already exists
+	if (file_exists($target_file)) {
+		//echo "Sorry, file already exists.";
+		$uploadOk = 1;
+	}
+	// Check file size
+	if ($_FILES["cons_dept_image"]["size"] > 500000) {
+		//echo "Sorry, your file is too large.";
+		$uploadOk = 0;
+	}
+	// Allow certain file formats
+	if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+	&& $imageFileType != "gif" ) {
+		//echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+		$uploadOk = 0;
+	}
+	// Check if $uploadOk is set to 0 by an error
+	if ($uploadOk == 0) {
+		//echo "Sorry, your file was not uploaded.";
+	// if everything is ok, try to upload file
+	} else {
+		if (move_uploaded_file($_FILES["cons_dept_image"]["tmp_name"], '../'.$target_file)) {
+			//echo "The file ". basename( $_FILES["file"]["name"]). " has been uploaded.";
+		} else {
+			//echo "Sorry, there was an error uploading your file.";
+		}
+	}
+
+	//end upload image
+
+	$query = "INSERT INTO const_dept (title,title_slug, description,const_des,cons_image) VALUES ('$dept_name','$dept_slug', '$dept_about_des', '$dept_description','$target_file')";
+
+	if(mysqli_query($connection, $query)){
+		
+			echo '1';
+	} else
+	    echo("Error description: " . mysqli_error($connection));
+			
+			echo json_encode($output);
+			echo $output;
+	}
+
+?>

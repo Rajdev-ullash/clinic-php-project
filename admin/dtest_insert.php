@@ -11,8 +11,9 @@ If(!empty($_POST)){
     $test_short_des = mysqli_real_escape_string($connection, $_POST["test_short_description"]);
     $service_id = mysqli_real_escape_string($connection, $_POST["service_id"]);
     $test_order = mysqli_real_escape_string($connection, $_POST["test_order"]);
+    $const_id = mysqli_real_escape_string($connection, $_POST["const_id"]);
 
-    $query = "INSERT INTO tests (tname,short_des,servicehead,tdes) VALUES ('$test_name','$test_short_des','$service_id','$test_order')";
+    $query = "INSERT INTO tests (tname,short_des,servicehead,tdes,const_dept_id) VALUES ('$test_name','$test_short_des','$service_id','$test_order','$const_id')";
     
     if(mysqli_query($connection, $query)){
         echo "1";

@@ -14,6 +14,9 @@ If(!empty($_POST)){
 	$keywords = mysqli_real_escape_string($connection, $_POST["keywords"]);
     $status = mysqli_real_escape_string($connection, $_POST["status"]);
     $history = mysqli_real_escape_string($connection, $_POST["history"]);
+	$cons_day = mysqli_real_escape_string($connection, $_POST["cons_day"]);
+	$cons_time = mysqli_real_escape_string($connection, $_POST["cons_time"]);
+	$cons_dept_id = mysqli_real_escape_string($connection, $_POST["cons_dept_id"]);
 
 
 	/* ----------- IMAGE UPLOAD ------------------*/
@@ -83,7 +86,7 @@ If(!empty($_POST)){
 		// $imagefile = $target_file;	
 	/* -----------end IMAGE UPLOAD ------------------*/
 
-	$query = "INSERT INTO doctor(name,details,dept,history,keywords,status) VALUES ('$name','$detail','$dept','$history','$keywords','$status')";
+	$query = "INSERT INTO doctor(name,details,dept,history,keywords,status,cons_day,cons_time,cons_dept_id) VALUES ('$name','$detail','$dept','$history','$keywords','$status','$cons_day','$cons_time','$cons_dept_id')";
 
 	if(mysqli_query($connection, $query)){
 			

@@ -23,13 +23,14 @@
 require_once('admin/databases.php');
 include 'header.php';
 $dept = $_GET['id'];
-$query = "SELECT * FROM department WHERE id=$dept";
+$query = "SELECT * FROM const_dept WHERE id=$dept";
 $result = mysqli_query($connection, $query);
 $row = mysqli_fetch_array($result);
+$cons_dept_id = $row['id'];
 ?>
 <!--Page Header Start-->
 <section class="page-header">
-    <div class="page-header-bg" style="background-image: url(<?php echo $row['header_image'];?>)">
+    <div class="page-header-bg" style="background-image: url(<?php echo $row['cons_image'];?>)">
     </div>
     <div class="page-header-shape-1"><img src="assets/images/shapes/page-header-shape-1.png" alt=""></div>
     <div class="container">
@@ -39,7 +40,7 @@ $row = mysqli_fetch_array($result);
                 <li><span>/</span></li>
                 <li>Services</li>
             </ul>
-            <h2><?php echo $row['dname'];?></h2>
+            <h2><?php echo $row['title'];?></h2>
         </div>
     </div>
 </section>
@@ -48,6 +49,10 @@ $row = mysqli_fetch_array($result);
 <!--Why Choose Two Start-->
 <section class="why-choose-two">
     <div class="container">
+        <div class="section-title text-center">
+
+            <h2 class="section-title__title">ABOUT</h2>
+        </div>
         <div class="row">
             <div class="col-xl-12 col-lg-12">
                 <div class="why-choose-two__left">
@@ -60,50 +65,88 @@ $row = mysqli_fetch_array($result);
         </div>
     </div>
 </section>
+<section class="why-choose-two">
+    <div class="container">
+        <div class="section-title text-center">
+
+            <h2 class="section-title__title">CONSULTATION & APPOINTMENT</h2>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="why-choose-two__left">
+
+                    <p class="why-choose-two__text"><?php echo $row['const_des'];?></p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 <!--Why Choose Two End-->
+<!--Team One Start-->
+<section class="team-one">
+    <div class="team-one__shape-1 float-bob-y">
+        <img src="assets/images/shapes/team-one-shape-1.png" alt="">
+    </div>
+    <div class="container">
+        <div class="section-title text-center">
+            <div class="section-sub-title-box">
+                <p class="section-sub-title">Related Doctors</p>
+                <div class="section-title-shape-1">
+                    <img src="assets/images/shapes/section-title-shape-1.png" alt="">
+                </div>
+                <div class="section-title-shape-2">
+                    <img src="assets/images/shapes/section-title-shape-2.png" alt="">
+                </div>
+            </div>
+            <h2 class="section-title__title">Meet our specialist <br> doctors</h2>
+        </div>
+        <div class="row">
+            <!--Team One Single Start-->
+            <?php
+                            
+                            $dcquery = "SELECT * FROM doctor WHERE cons_dept_id='$cons_dept_id'";
+                            $dcresult = mysqli_query($connection, $dcquery);
+                            while($dcrow = mysqli_fetch_array($dcresult)){
+                            ?>
+            <div class="col-xl-3 col-lg-3 wow fadeInUp" data-wow-delay="100ms">
+                <div class="team-one__single">
+                    <!-- <div class="team-one__img">
+                                <div class="team-one__img-box">
+                                    <img src="admin/" alt="">
+                                </div>
+                               
+                            </div> -->
+                    <div class="team-one__content">
+                        <h3 class="team-one__name"><a
+                                href="doctor-profile.php?id=<?php echo $dcrow['id'] ?>"><?php echo $dcrow['name'] ?></a>
+                        </h3>
+                        <p class="team-one__sub-title"><?php echo $dcrow['details'] ?></p>
+
+                    </div>
+                </div>
+            </div>
+            <!--Team One Single End-->
+            <?php
+                    }
+                    ?>
+
+        </div>
+
+    </div>
+</section>
+<!--Team One End-->
 <!--FAQ One Start-->
 <section class="">
     <div class="container">
         <div class="section-title text-center">
 
-            <h2 class="section-title__title">Available Services &amp; Tests</h2>
+            <h2 class="section-title__title">Related Tests</h2>
         </div>
+
         <?php
-                            if($row['dname'] == 'Oncology'){
-                                ?>
-        <div class="row">
-            <?php 
-                                        $squery = "SELECT * FROM services WHERE dept=$dept ORDER BY ord ASC";
-                                        $sresult = mysqli_query($connection, $squery);
-                                        while($srow = mysqli_fetch_array($sresult)){
-                                            ?>
-            <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="100ms">
-                <div class="services-one__single">
-                    <div class="service-one__img d-flex justify-content-center">
-                        <img src="<?php echo $srow['image'];?>" alt="" class="img-fluid"
-                            style="height: 200px; width:250px;">
-                    </div>
-                    <div class="service-one__content">
-                        <!-- <div class="services-one__icon">
-                                                            <span class="icon-shield"></span>
-                                                        </div> -->
-                        <h2 class="service-one__title"><a
-                                href="cancer-detail.php?id=<?php echo $srow['sid'];?>"><?php echo $srow['sname'];?></a>
-                        </h2>
-                        <p class="service-one__text text-justify"><?php echo $srow['short_des'];?></p>
-                    </div>
-                </div>
-            </div>
-            <?php
-                                        }
-                                        
-                                    ?>
-        </div>
-        <?php
-                        }
-                        ?>
-        <?php
-                            if($row['dname'] !== 'Oncology'){
+                           
 
                                 ?>
         <section class="feature-four">
@@ -111,7 +154,7 @@ $row = mysqli_fetch_array($result);
                 <div class="feature-four__bottom">
                     <div class="row">
                         <?php 
-                                        $squery = "SELECT * FROM services WHERE dept=$dept ORDER BY ord ASC";
+                                        $squery = "SELECT * FROM tests WHERE const_dept_id='$cons_dept_id'";
                                         $sresult = mysqli_query($connection, $squery);
                                         while($srow = mysqli_fetch_array($sresult)){
                                             ?>
@@ -119,17 +162,13 @@ $row = mysqli_fetch_array($result);
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="feature-four_singlex">
                                 <div class="feature-four__single-top">
-                                    <div class="feature-four__icon">
-                                        <img src="<?php echo $srow['image'];?>" style="width:50px;">
-                                    </div>
-                                    <h4 class="feature-four__title"><a
-                                            href="test-info.php?id=<?php echo $srow['sid'];?>">
-                                            <?php echo $srow['sname'];?>
-                                        </a></h4>
+                                    <h4 class="feature-four__title">
+                                        <?php echo $srow['tname'];?>
+                                    </h4>
                                     <span class="right-arrow">
-                                        <h3><a href="test-info.php?id=<?php echo $srow['sid'];?>">
-                                                >
-                                            </a></h3>
+                                        <h3>
+                                            >
+                                        </h3>
                                     </span>
                                 </div>
 
@@ -147,7 +186,7 @@ $row = mysqli_fetch_array($result);
 
 
         <?php
-                        }
+                        
                         ?>
 
 
