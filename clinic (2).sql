@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2023 at 07:50 AM
+-- Generation Time: Apr 05, 2023 at 09:26 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -50,6 +50,29 @@ INSERT INTO `appointment` (`id`, `pname`, `age`, `email`, `phone`, `doctor`, `ad
 (4, 'test', 56, 'test.email.raj@gmail.com', '01644836367', 3, '2023-04-01', '15:28:00', 'approved'),
 (5, 'Service Names', 4, 'rahulsingha12@gmail.com', '01644836367', 0, '2023-03-18', '15:28:00', 'pending'),
 (6, 'Service Names', 4, 'rahulsingha12@gmail.com', '01644836367', 0, '2023-03-18', '15:28:00', 'pending');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `const_dept`
+--
+
+CREATE TABLE `const_dept` (
+  `id` int(11) NOT NULL,
+  `title` varchar(2000) NOT NULL,
+  `title_slug` varchar(2000) NOT NULL,
+  `description` varchar(2000) NOT NULL,
+  `const_des` varchar(2000) NOT NULL,
+  `cons_image` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `const_dept`
+--
+
+INSERT INTO `const_dept` (`id`, `title`, `title_slug`, `description`, `const_des`, `cons_image`) VALUES
+(2, 'Heart Disease', 'heart-disease', 'ASPERIA HEALTH CARE Ltd. is renowned for its comprehensive and innovative approach to diagnosing all types of heart diseases. Our state-of-the-art facility is equipped with the latest machinery and technology, allowing us to conduct a full range of cardiac investigations and assessments with the highest accuracy. We are committed to providing the highest level of care to our patients, and we strive to remain at the forefront of cardiac diagnosis and treatment.', 'ASPERIA HEALTH CARE Ltd. provides consultation services in level-4 (OPD) through highly qualified and experienced Consultants, who carefully evaluate each patient. After diagnosing the patient’s condition, our consultants discuss available treatment options and recommend the most effective treatment.', 'admin/images/histo-md.png'),
+(3, 'Gastroenterology', 'gastroenterology', 'The Gastroenterology, Liver & Gallbladder department is staffed with highly trained medical professionals, including gastroenterologists, hepatologists, and skilled nurses and technicians. These specialists use state-of-the-art diagnostic tools and treatment options to provide the best possible care to their patients. The department is also equipped with advanced endoscopic equipment and imaging technology to help with accurate diagnosis and effective treatment of digestive and liver conditions.', 'ASPERIA HEALTH CARE Ltd. provides consultation services in level-4 (OPD) through highly qualified and experienced Consultants, who carefully evaluate each patient. After diagnosing the patient’s condition, our consultants discuss available treatment options and recommend the most effective treatment.', 'admin/images/mol.png');
 
 -- --------------------------------------------------------
 
@@ -123,28 +146,31 @@ CREATE TABLE `doctor` (
   `dept` varchar(100) NOT NULL,
   `history` varchar(5000) NOT NULL,
   `keywords` varchar(200) NOT NULL,
-  `status` varchar(20) NOT NULL
+  `status` varchar(20) NOT NULL,
+  `cons_day` varchar(500) DEFAULT NULL,
+  `cons_time` time DEFAULT NULL,
+  `cons_dept_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`id`, `name`, `details`, `dept`, `history`, `keywords`, `status`) VALUES
-(1, 'PROF. JASHIM UDDIN', 'M.B.B.S (DMC), FCPS (Medicine)', '6', '<p>M.B.B.S (DMC), FCPS (Medicine)</p>', 'medicine', 'Active'),
-(2, 'DR. MAHBUBUL ALAM KHONDOKAR', 'MBBS, BCS (Health), FCPS (Medicine), MD (Neurology)', '7', '<p>MBBS, BCS (Health), FCPS (Medicine), MD (Neurology)</p>', 'NEUROLOGIST', 'Active'),
-(3, 'DR. NOJIBUR RAHMAN KHOKHON', 'MBBS, MCPS (Medicine) MD (Rheumatology)- BSMMU EULAR Certified in Rheumatic Disease (Switzerland) BCS (Health), Consultant (Medicine)', '8', '<p>MBBS, MCPS (Medicine)</p>\r\n<p>MD (Rheumatology)- BSMMU</p>\r\n<p>EULAR Certified in Rheumatic Disease (Switzerland)</p>\r\n<p>BCS (Health), Consultant (Medicine)</p>', 'Rheumatologist', 'Active'),
-(4, 'DR. SOURAV BISWAS', 'MBBS, MD (Hematology , BSMMU)  BCS (Health)  Consultant (Dept. of Hematology)', '9', '<p>MBBS, MD (Hematology , BSMMU)</p>\r\n<p>BCS (Health)</p>\r\n<p>Consultant (Dept. of Hematology)</p>', 'Hematologist', 'Active'),
-(5, 'DR. JHULAN BARUA', 'MBBS, BCS (Health), MD (Hepatology)', '10', '<p>MBBS, BCS (Health), MD (Hepatology)</p>', 'Liver Specialist', 'Active'),
-(6, 'Dr. M.S. Haider Rushni', 'MBBS (CMS), MD (Nephrology)', '11', '<p>MBBS (CMS), MD (Nephrology)</p>', 'Kidney Diseases Specialist', 'Active'),
-(7, 'Dr Md Hosne Sadat Patowary', 'MBBS, MD (Chest Disease) Assistant Professor, Respiratory Department', '12', '<p>MBBS, MD (Chest Disease) Assistant Professor, Respiratory Department</p>', 'Chest Diseases', 'Active'),
-(8, 'DR. ASIFA ALI', 'M.B.B.S. FCPS - Fellow Of The College Of Physicians And Surgeons', '13', '<p>M.B.B.S. FCPS - Fellow Of The College Of Physicians And Surgeons</p>', 'Gynecologist', 'Active'),
-(9, 'DR. ALOK KUMAR RAHA', 'MBBS (Dhaka), MCPS (Medicine), MD (Hepatology)', '14', '<p>MBBS (Dhaka), MCPS (Medicine), MD (Hepatology)</p>', 'Liver Diseases Specialist', 'Active'),
-(10, 'DR. MASUD RANA', 'MBBS, MD (Gastroenterology)', '15', '<p>MBBS, MD (Gastroenterology)</p>', 'Gastroenterology, Pancreas & Liver Diseases Specialist', 'Active'),
-(11, 'DR. JABRD JAHANGIR TUHIN', 'MBBS, BCS (Health), MS (Orthopedics), AO (Fellow)', '16', '<p>MBBS, BCS (Health), MS (Orthopedics), AO (Fellow)</p>', 'Orthopedic & Trauma Surgeon', 'Homepage'),
-(12, 'DR. FATEMA AKTHER SHILPI', 'BBS, MS (Obs & Gynae)', '13', '<p>BBS, MS (Obs &amp; Gynae)</p>', 'Gynecologist', 'Homepage'),
-(13, 'DR. ALI ASGAR CHOWDHURY', 'MBBS, BCS (Health), FCPS (Radiotherapy)', '18', '<p>MBBS, BCS (Health), FCPS (Radiotherapy)</p>', 'Cancer & Tumor Specialist', 'Homepage'),
-(14, 'DR. RAKIB UL HASAN', 'MBBS, MD (Oncology), BCS (Health)', '19', '<p>MBBS, MD (Oncology), BCS (Health)</p>', 'Cancer Specialist', 'Homepage');
+INSERT INTO `doctor` (`id`, `name`, `details`, `dept`, `history`, `keywords`, `status`, `cons_day`, `cons_time`, `cons_dept_id`) VALUES
+(1, 'PROF. JASHIM UDDIN', 'M.B.B.S (DMC), FCPS (Medicine)', '6', '<p>M.B.B.S (DMC), FCPS (Medicine)</p>', 'medicine', 'Active', NULL, NULL, 0),
+(2, 'DR. MAHBUBUL ALAM KHONDOKAR', 'MBBS, BCS (Health), FCPS (Medicine), MD (Neurology)', '7', '<p>MBBS, BCS (Health), FCPS (Medicine), MD (Neurology)</p>', 'NEUROLOGIST', 'Active', NULL, NULL, 0),
+(3, 'DR. NOJIBUR RAHMAN KHOKHON', 'MBBS, MCPS (Medicine) MD (Rheumatology)- BSMMU EULAR Certified in Rheumatic Disease (Switzerland) BCS (Health), Consultant (Medicine)', '8', '<p>MBBS, MCPS (Medicine)</p>\r\n<p>MD (Rheumatology)- BSMMU</p>\r\n<p>EULAR Certified in Rheumatic Disease (Switzerland)</p>\r\n<p>BCS (Health), Consultant (Medicine)</p>', 'Rheumatologist', 'Active', NULL, NULL, 0),
+(4, 'DR. SOURAV BISWAS', 'MBBS, MD (Hematology , BSMMU)  BCS (Health)  Consultant (Dept. of Hematology)', '9', '<p>MBBS, MD (Hematology , BSMMU)</p>\r\n<p>BCS (Health)</p>\r\n<p>Consultant (Dept. of Hematology)</p>', 'Hematologist', 'Active', NULL, NULL, 0),
+(5, 'DR. JHULAN BARUA', 'MBBS, BCS (Health), MD (Hepatology)', '10', '<p>MBBS, BCS (Health), MD (Hepatology)</p>', 'Liver Specialist', 'Active', NULL, NULL, 0),
+(6, 'Dr. M.S. Haider Rushni', 'MBBS (CMS), MD (Nephrology)', '11', '<p>MBBS (CMS), MD (Nephrology)</p>', 'Kidney Diseases Specialist', 'Active', NULL, NULL, 0),
+(7, 'Dr Md Hosne Sadat Patowary', 'MBBS, MD (Chest Disease) Assistant Professor, Respiratory Department', '12', '<p>MBBS, MD (Chest Disease) Assistant Professor, Respiratory Department</p>', 'Chest Diseases', 'Active', NULL, NULL, 0),
+(8, 'DR. ASIFA ALI', 'M.B.B.S. FCPS - Fellow Of The College Of Physicians And Surgeons', '13', '<p>M.B.B.S. FCPS - Fellow Of The College Of Physicians And Surgeons</p>', 'Gynecologist', 'Active', NULL, NULL, 0),
+(9, 'DR. ALOK KUMAR RAHA', 'MBBS (Dhaka), MCPS (Medicine), MD (Hepatology)', '14', '<p>MBBS (Dhaka), MCPS (Medicine), MD (Hepatology)</p>', 'Liver Diseases Specialist', 'Active', NULL, NULL, 0),
+(10, 'DR. MASUD RANA', 'MBBS, MD (Gastroenterology)', '15', '<p>MBBS, MD (Gastroenterology)</p>', 'Gastroenterology, Pancreas & Liver Diseases Specialist', 'Active', NULL, NULL, 0),
+(11, 'DR. JABRD JAHANGIR TUHIN', 'MBBS, BCS (Health), MS (Orthopedics), AO (Fellow)', '16', '<p>MBBS, BCS (Health), MS (Orthopedics), AO (Fellow)</p>', 'Orthopedic & Trauma Surgeon', 'Homepage', NULL, NULL, 0),
+(12, 'DR. FATEMA AKTHER SHILPI', 'BBS, MS (Obs & Gynae)', '13', '<p>BBS, MS (Obs &amp; Gynae)</p>', 'Gynecologist', 'Homepage', NULL, NULL, 0),
+(13, 'DR. ALI ASGAR CHOWDHURY', 'MBBS, BCS (Health), FCPS (Radiotherapy)', '18', '<p>MBBS, BCS (Health), FCPS (Radiotherapy)</p>', 'Cancer & Tumor Specialist', 'Homepage', 'sun-mon', '01:20:00', 2),
+(14, 'DR. RAKIB UL HASAN', 'MBBS, MD (Oncology), BCS (Health)', '19', '<p>MBBS, MD (Oncology), BCS (Health)</p>', 'Cancer Specialist', 'Homepage', 'sun-mon', '21:59:00', 2);
 
 -- --------------------------------------------------------
 
@@ -173,7 +199,8 @@ INSERT INTO `menu` (`id`, `head`, `menutext`, `link`, `menuorder`, `status`, `ac
 (4, 'News', 'News', 'news', 26, 1, 1),
 (5, 'Doctor', 'Department', 'dr_department', 32, 1, 1),
 (6, 'Doctor', 'Doctor', 'doctor', 33, 1, 1),
-(7, 'Appointment', 'appointments', 'appointments', 42, 1, 1);
+(7, 'Appointment', 'appointments', 'appointments', 42, 1, 1),
+(8, 'Services', 'Consult Department', 'cons_dept', 24, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -276,55 +303,56 @@ CREATE TABLE `tests` (
   `tname` varchar(100) NOT NULL,
   `short_des` varchar(500) DEFAULT NULL,
   `servicehead` int(11) NOT NULL,
-  `tdes` int(11) NOT NULL
+  `tdes` int(11) NOT NULL,
+  `const_dept_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tests`
 --
 
-INSERT INTO `tests` (`testid`, `tname`, `short_des`, `servicehead`, `tdes`) VALUES
-(13, 'Glucose Test', 'A glucose test is a medical test used to measure the level of glucose (sugar) in a person\'s blood. This test is commonly used to diagnose and monitor diabetes, a chronic condition where the body cannot properly regulate blood sugar levels.', 5, 1),
-(14, 'Renal Function test', 'Renal Function Tests (RFTs) are a group of blood and urine tests that are used to evaluate the function of the kidneys. These tests can help diagnose and monitor various kidney-related conditions, such as chronic kidney disease, acute kidney injury, and urinary tract infections.', 5, 2),
-(15, 'Liver Function test', NULL, 5, 3),
-(16, 'TSH ( Thyroid Stimulating Hormone', 'The TSH (Thyroid Stimulating Hormone) test is a blood test that measures the level of TSH in the body. TSH is a hormone produced by the pituitary gland in the brain that stimulates the thyroid gland to produce and release thyroid hormones.', 6, 1),
-(17, 'FT3 ( Free Triiodothyronine)', 'The FT3 (Free Triiodothyronine) Test is a blood test used to measure the level of the thyroid hormone triiodothyronine (T3) that is not bound to proteins in the bloodstream.', 6, 2),
-(18, 'FT4 ( Free Thyroxine)', NULL, 6, 3),
-(19, 'Vitamin D3', NULL, 6, 4),
-(20, 'VDRL', 'The Venereal Disease Research Laboratory (VDRL) test is a blood test used to screen for syphilis, a sexually transmitted disease (STD) caused by the bacterium Treponema pallidum. The VDRL test detects the presence of antibodies produced by the body in response to a syphilis infection.', 7, 1),
-(21, 'Widal Test ', 'The Widal test is a blood test used to detect the presence of antibodies against specific bacteria that cause typhoid fever and other related illnesses. It is a common diagnostic tool used in clinical settings to confirm or rule out a suspected case of typhoid fever.', 7, 2),
-(22, 'TPHA ', NULL, 7, 3),
-(23, 'ASO ', NULL, 7, 4),
-(24, 'S. IgE ( Immunoglobulin E)  ', 'The S.IgE (serum immunoglobulin E) test is a blood test used to measure the level of IgE antibodies in the blood. IgE is an antibody that is produced by the immune system in response to allergens such as pollen, dust, or certain foods.', 8, 1),
-(25, 'ICT for Malaria ', 'ICT (Immunochromatographic Test) for Malaria is a rapid diagnostic test that detects the presence of specific malaria antigens in a patient\'s blood. The test involves taking a small amount of blood from the patient and adding it to a test strip, which contains specific antibodies that bind to malaria antigens if present.', 8, 2),
-(26, 'ICT for Kala Azar (Serum)', NULL, 8, 3),
-(27, 'Hepatitis B Virus Quantitative', 'The Hepatitis B Virus (HBV) Quantitative Test is a blood test that measures the amount of HBV in a person\'s bloodstream. It is used to monitor the viral load in patients with chronic HBV infection and to determine the effectiveness of antiviral therapy', 16, 1),
-(28, 'Hepatitis B virus DNA Genotyping', 'The Hepatitis B virus DNA genotyping test is a diagnostic test that can determine the genotype or genetic makeup of the Hepatitis B virus (HBV) in a patient\'s blood sample. This test can help clinicians in understanding the type and severity of the infection and can guide treatment decisions.', 16, 2),
-(29, 'Hepatitis B virus (HBV) DNA drug resistance ', NULL, 16, 3),
-(30, 'Hepatitis C Virus RNA Quantitative', NULL, 16, 4),
-(31, 'Hepatitis C Virus Genotyping', NULL, 16, 5),
-(32, 'Cytomegalovirus (CMV) PCR Qualitative', NULL, 16, 6),
-(33, 'Cytomegalovirus (CMV) PCR Quantitative', NULL, 16, 7),
-(34, 'α/β-Thalassemia Mutation', 'α/β-thalassemia is a genetic disorder that affects the production of hemoglobin in the blood. It is caused by mutations in the genes that are responsible for producing the alpha and beta globin proteins that make up hemoglobin.', 17, 1),
-(35, 'HLA- B27 Genotyping', 'The HLA-B27 genotyping test is a diagnostic test that determines the presence or absence of the HLA-B27 gene in a person\'s DNA. The test is typically used to help diagnose certain autoimmune diseases such as ankylosing spondylitis, reactive arthritis, and psoriatic arthritis, as the HLA-B27 gene is strongly associated with these conditions.', 17, 2),
-(36, 'Chimerism', NULL, 17, 3),
-(37, 'Rh Factor Genotyping', NULL, 17, 4),
-(38, 'Achondroplasia', NULL, 17, 5),
-(39, 'Acute myeloid leukemia (AML) ', 'Acute Myeloid Leukemia (AML) is a type of cancer that affects the blood and bone marrow. AML testing typically involves a series of blood tests and a bone marrow biopsy to detect abnormal cells and evaluate the extent of the disease.', 19, 1),
-(40, 'BCR-ABL qualitative/quantitative ', 'The BCR-ABL qualitative/quantitative test is a diagnostic test used to detect and monitor the presence of the BCR-ABL gene in patients with certain types of leukemia, such as chronic myeloid leukemia (CML) and some cases of acute lymphoblastic leukemia (ALL). The BCR-ABL gene is a fusion of two genes, BCR and ABL, and its presence is a hallmark of these types of leukemia.', 19, 2),
-(41, 'PML-RARA qualitative ', NULL, 19, 3),
-(42, 'JAK-2 Mutation Exon 12 & 14 ', NULL, 19, 4),
-(43, 'FLT3 (FMS-like tyrosine kinase 3) Prognostic Marker for AM', NULL, 19, 5),
-(44, 'BRCA1 and BRCA2 (Breast Cancer susceptibility genes 1 and 2) mutation detection', NULL, 19, 6),
-(45, 'Screening of cancer hotspots (50 genes) ', NULL, 19, 7),
-(46, 'HLA-A/B/DR typing', 'HLA (Human Leukocyte Antigen) typing is a genetic test that determines the specific HLA proteins present on the surface of your white blood cells.', 20, 1),
-(47, 'HLA-B typing ', NULL, 20, 2),
-(48, 'FNAC ( FINE NIDDLE ASPIRATION CYTOLOGY)', 'Fine Needle Aspiration Cytology (FNAC) is a diagnostic test used to obtain a sample of cells from a suspicious or abnormal lump or mass in the body', 18, 1),
-(49, 'BIOPSY', NULL, 18, 2),
-(50, 'TISSUE HISTOLOGY', NULL, 18, 3),
-(51, 'MARKER TESTS', NULL, 18, 4),
-(52, 'SMEAR STUDY', NULL, 18, 5),
-(53, 'PANEL STUDY', NULL, 18, 6);
+INSERT INTO `tests` (`testid`, `tname`, `short_des`, `servicehead`, `tdes`, `const_dept_id`) VALUES
+(13, 'Glucose Test', 'A glucose test is a medical test used to measure the level of glucose (sugar) in a person\'s blood. This test is commonly used to diagnose and monitor diabetes, a chronic condition where the body cannot properly regulate blood sugar levels.', 5, 1, 2),
+(14, 'Renal Function test', 'Renal Function Tests (RFTs) are a group of blood and urine tests that are used to evaluate the function of the kidneys. These tests can help diagnose and monitor various kidney-related conditions, such as chronic kidney disease, acute kidney injury, and urinary tract infections.', 5, 2, 3),
+(15, 'Liver Function test', '', 5, 3, 3),
+(16, 'TSH ( Thyroid Stimulating Hormone', 'The TSH (Thyroid Stimulating Hormone) test is a blood test that measures the level of TSH in the body. TSH is a hormone produced by the pituitary gland in the brain that stimulates the thyroid gland to produce and release thyroid hormones.', 6, 1, 2),
+(17, 'FT3 ( Free Triiodothyronine)', 'The FT3 (Free Triiodothyronine) Test is a blood test used to measure the level of the thyroid hormone triiodothyronine (T3) that is not bound to proteins in the bloodstream.', 6, 2, 1),
+(18, 'FT4 ( Free Thyroxine)', NULL, 6, 3, 1),
+(19, 'Vitamin D3', NULL, 6, 4, 1),
+(20, 'VDRL', 'The Venereal Disease Research Laboratory (VDRL) test is a blood test used to screen for syphilis, a sexually transmitted disease (STD) caused by the bacterium Treponema pallidum. The VDRL test detects the presence of antibodies produced by the body in response to a syphilis infection.', 7, 1, 1),
+(21, 'Widal Test ', 'The Widal test is a blood test used to detect the presence of antibodies against specific bacteria that cause typhoid fever and other related illnesses. It is a common diagnostic tool used in clinical settings to confirm or rule out a suspected case of typhoid fever.', 7, 2, 1),
+(22, 'TPHA ', NULL, 7, 3, 1),
+(23, 'ASO ', NULL, 7, 4, 1),
+(24, 'S. IgE ( Immunoglobulin E)  ', 'The S.IgE (serum immunoglobulin E) test is a blood test used to measure the level of IgE antibodies in the blood. IgE is an antibody that is produced by the immune system in response to allergens such as pollen, dust, or certain foods.', 8, 1, 1),
+(25, 'ICT for Malaria ', 'ICT (Immunochromatographic Test) for Malaria is a rapid diagnostic test that detects the presence of specific malaria antigens in a patient\'s blood. The test involves taking a small amount of blood from the patient and adding it to a test strip, which contains specific antibodies that bind to malaria antigens if present.', 8, 2, 1),
+(26, 'ICT for Kala Azar (Serum)', NULL, 8, 3, 2),
+(27, 'Hepatitis B Virus Quantitative', 'The Hepatitis B Virus (HBV) Quantitative Test is a blood test that measures the amount of HBV in a person\'s bloodstream. It is used to monitor the viral load in patients with chronic HBV infection and to determine the effectiveness of antiviral therapy', 16, 1, 1),
+(28, 'Hepatitis B virus DNA Genotyping', 'The Hepatitis B virus DNA genotyping test is a diagnostic test that can determine the genotype or genetic makeup of the Hepatitis B virus (HBV) in a patient\'s blood sample. This test can help clinicians in understanding the type and severity of the infection and can guide treatment decisions.', 16, 2, 2),
+(29, 'Hepatitis B virus (HBV) DNA drug resistance ', NULL, 16, 3, 1),
+(30, 'Hepatitis C Virus RNA Quantitative', NULL, 16, 4, 1),
+(31, 'Hepatitis C Virus Genotyping', NULL, 16, 5, 2),
+(32, 'Cytomegalovirus (CMV) PCR Qualitative', NULL, 16, 6, 1),
+(33, 'Cytomegalovirus (CMV) PCR Quantitative', NULL, 16, 7, NULL),
+(34, 'α/β-Thalassemia Mutation', 'α/β-thalassemia is a genetic disorder that affects the production of hemoglobin in the blood. It is caused by mutations in the genes that are responsible for producing the alpha and beta globin proteins that make up hemoglobin.', 17, 1, NULL),
+(35, 'HLA- B27 Genotyping', 'The HLA-B27 genotyping test is a diagnostic test that determines the presence or absence of the HLA-B27 gene in a person\'s DNA. The test is typically used to help diagnose certain autoimmune diseases such as ankylosing spondylitis, reactive arthritis, and psoriatic arthritis, as the HLA-B27 gene is strongly associated with these conditions.', 17, 2, NULL),
+(36, 'Chimerism', NULL, 17, 3, NULL),
+(37, 'Rh Factor Genotyping', NULL, 17, 4, NULL),
+(38, 'Achondroplasia', NULL, 17, 5, 0),
+(39, 'Acute myeloid leukemia (AML) ', 'Acute Myeloid Leukemia (AML) is a type of cancer that affects the blood and bone marrow. AML testing typically involves a series of blood tests and a bone marrow biopsy to detect abnormal cells and evaluate the extent of the disease.', 19, 1, 0),
+(40, 'BCR-ABL qualitative/quantitative ', 'The BCR-ABL qualitative/quantitative test is a diagnostic test used to detect and monitor the presence of the BCR-ABL gene in patients with certain types of leukemia, such as chronic myeloid leukemia (CML) and some cases of acute lymphoblastic leukemia (ALL). The BCR-ABL gene is a fusion of two genes, BCR and ABL, and its presence is a hallmark of these types of leukemia.', 19, 2, 0),
+(41, 'PML-RARA qualitative ', NULL, 19, 3, 0),
+(42, 'JAK-2 Mutation Exon 12 & 14 ', NULL, 19, 4, 0),
+(43, 'FLT3 (FMS-like tyrosine kinase 3) Prognostic Marker for AM', NULL, 19, 5, 0),
+(44, 'BRCA1 and BRCA2 (Breast Cancer susceptibility genes 1 and 2) mutation detection', NULL, 19, 6, 0),
+(45, 'Screening of cancer hotspots (50 genes) ', NULL, 19, 7, 0),
+(46, 'HLA-A/B/DR typing', 'HLA (Human Leukocyte Antigen) typing is a genetic test that determines the specific HLA proteins present on the surface of your white blood cells.', 20, 1, 0),
+(47, 'HLA-B typing ', NULL, 20, 2, 0),
+(48, 'FNAC ( FINE NIDDLE ASPIRATION CYTOLOGY)', 'Fine Needle Aspiration Cytology (FNAC) is a diagnostic test used to obtain a sample of cells from a suspicious or abnormal lump or mass in the body', 18, 1, 0),
+(49, 'BIOPSY', NULL, 18, 2, 0),
+(50, 'TISSUE HISTOLOGY', NULL, 18, 3, 0),
+(51, 'MARKER TESTS', NULL, 18, 4, 0),
+(52, 'SMEAR STUDY', NULL, 18, 5, 0),
+(53, 'PANEL STUDY', NULL, 18, 6, 0);
 
 -- --------------------------------------------------------
 
@@ -358,6 +386,12 @@ INSERT INTO `users` (`userid`, `username`, `password`, `level`, `description`, `
 -- Indexes for table `appointment`
 --
 ALTER TABLE `appointment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `const_dept`
+--
+ALTER TABLE `const_dept`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -431,6 +465,12 @@ ALTER TABLE `appointment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `const_dept`
+--
+ALTER TABLE `const_dept`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
@@ -452,7 +492,7 @@ ALTER TABLE `doctor`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `news`
