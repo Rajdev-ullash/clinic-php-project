@@ -36,7 +36,7 @@ while($row = mysqli_fetch_array($result))
       <input type="text" name="dept_name" id="dept_name'.$row["id"].'" class="form-control" value="'.$row["dname"].'" />
       <br />
       <label>Department Short Description</label>
-      <textarea name="dept_short_description" id="dept_short_description'.$row["id"].'" class="form-control">'.$row["short_des"].'</textarea>
+      <textarea name="dept_short_description-edit" id="dept_short_description'.$row["id"].'" class="form-control">'.$row["short_des"].'</textarea>
       <br />
       <label>Department Description</label>
       <textarea name="dept_description" id="dept_description'.$row["id"].'" class="form-control">'.$row["description"].'</textarea>
@@ -204,7 +204,23 @@ while($row = mysqli_fetch_array($result))
 <?php
       include('footer.php');
       ?>
-
+<script>
+tinymce.init({
+    selector: 'textarea',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [{
+            value: 'First.Name',
+            title: 'First Name'
+        },
+        {
+            value: 'Email',
+            title: 'Email'
+        },
+    ]
+});
+</script>
 <script type="text/javascript">
 // ----------------- my functions ---------------------
 
@@ -218,7 +234,7 @@ $(document).ready(function() {
 function addRecord() {
 
     var department_name = $('#dept_name').val();
-    var department_description = $('#dept_description').val();
+    var department_description = $('#dept_description').val();;
     var department_short_description = $('#dept_short_description').val();
     var department_image = $('#dept_image').val();
     var department_header_image = $('#dept_header_image').val();
@@ -283,8 +299,8 @@ function addRecord() {
 function update_depart_record(id) {
     var id = id;
     var department_name = $('#dept_name' + id).val();
-    var department_short_description = $('#dept_short_description' + id).val();
-    var department_description = $('#dept_description' + id).val();
+    var department_short_description = "$dept_short_description" + id.val();
+    var department_description = "$dept_description" + id.val();
     var department_image = $('#dept_image' + id).val();
     var department_header_image = $('#dept_header_image' + id).val();
     var department_order = $('#dept_order' + id).val();
