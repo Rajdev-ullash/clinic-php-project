@@ -219,8 +219,8 @@ function addRecord() {
     // var art = tinymce.get("art").getContent();
 
     var news_title = $("#news_title").val();
-    var news_short_desp = $("#news_short_desp").val();
-    var news_article = $("#news_article").val();
+    var news_short_desp = tinymce.get("news_short_desp").getContent();
+    var news_article = tinymce.get("news_article").getContent();
     var n_image = $("#n_image").val();
     var news_home_page_show = $("input[name='show']:checked").val();
 

@@ -288,7 +288,7 @@ $(document).ready(function() {
 function addRecord() {
 
     var test_name = $("#test_name").val();
-    var test_description = $("#test_short_description").val();
+    var test_description = tinymce.get('test_short_description').getContent();
 
     var service_id = $("#service_id").val();
 
@@ -305,7 +305,7 @@ function addRecord() {
     var form = $('#frm_slider_setup')[0];
     var data = new FormData(form);
     data.append("test_name", test_name);
-    data.append("test_description", test_description);
+    data.append("test_short_description", test_description);
     data.append("service_id", service_id);
     data.append("test_order", test_order);
     data.append("const_id", const_id);
@@ -337,7 +337,7 @@ function addRecord() {
 function update_test_record(id) {
     var id = id;
     var test_name = $("#tname" + id).val();
-    var test_short_description = $("#test_short_description" + id).val();
+    var test_short_description = tinymce.get('test_short_description' + id).getContent();
     var service_id = $("#servicehead" + id).val();
     var test_order = $("#tdes" + id).val();
     var const_id = $("#const_id" + id).val();

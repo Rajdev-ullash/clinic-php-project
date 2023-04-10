@@ -234,8 +234,8 @@ $(document).ready(function() {
 function addRecord() {
 
     var department_name = $('#dept_name').val();
-    var department_description = $('#dept_description').val();;
-    var department_short_description = $('#dept_short_description').val();
+    var department_description = tinymce.get('dept_description').getContent();
+    var department_short_description = tinymce.get('dept_short_description').getContent();
     var department_image = $('#dept_image').val();
     var department_header_image = $('#dept_header_image').val();
     var department_order = $('#dept_order').val();
@@ -267,6 +267,13 @@ function addRecord() {
 
     var form = $('#frm_slider_setup')[0];
     var data = new FormData(form);
+    data.append("dept_name", department_name);
+    data.append("dept_description", department_description);
+    data.append("dept_short_description", department_short_description);
+    data.append("dept_image", department_image);
+    data.append("dept_header_image", department_header_image);
+    data.append("dept_order", department_order);
+
 
     $.ajax({
         type: "POST",
@@ -299,8 +306,8 @@ function addRecord() {
 function update_depart_record(id) {
     var id = id;
     var department_name = $('#dept_name' + id).val();
-    var department_short_description = $("#dept_short_description" + id).val();
-    var department_description = $("#dept_description" + id).val();
+    var department_short_description = tinymce.get('dept_short_description' + id).getContent();
+    var department_description = tinymce.get('dept_description' + id).getContent();
     var department_image = $('#dept_image' + id).val();
     var department_header_image = $('#dept_header_image' + id).val();
     var department_order = $('#dept_order' + id).val();

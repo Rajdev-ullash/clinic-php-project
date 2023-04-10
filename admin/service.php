@@ -296,8 +296,8 @@ function addRecord() {
     var dept_id = $('#dept_id').val();
     console.log(dept_id);
     var service_name = $('#service_name').val();
-    var service_short_description = $('#service_short_description').val();
-    var service_description = $('#service_description').val();
+    var service_short_description = tinymce.get('service_short_description').getContent();
+    var service_description = tinymce.get('service_description').getContent();
     var service_image = $('#service_image').val();
     var service_image_alt = $('#service_image_alt').val();
 
@@ -346,8 +346,8 @@ function update_service_record(id) {
     var id = id;
     var dept_id = $('#dept_id' + id).val();
     var service_name = $('#sname' + id).val();
-    var service_short_description = $('#ssdes' + id).val();
-    var service_description = $('#sdes' + id).val();
+    var service_short_description = tinymce.get('ssdes' + id).getContent();
+    var service_description = tinymce.get('sdes' + id).getContent();
     var service_image = $('#simage' + id).val();
     var service_image_alt = $('#simage_alt' + id).val();
 
