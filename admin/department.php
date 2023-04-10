@@ -299,8 +299,8 @@ function addRecord() {
 function update_depart_record(id) {
     var id = id;
     var department_name = $('#dept_name' + id).val();
-    var department_short_description = "$dept_short_description" + id.val();
-    var department_description = "$dept_description" + id.val();
+    var department_short_description = $("#dept_short_description" + id).val();
+    var department_description = $("#dept_description" + id).val();
     var department_image = $('#dept_image' + id).val();
     var department_header_image = $('#dept_header_image' + id).val();
     var department_order = $('#dept_order' + id).val();
