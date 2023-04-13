@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2023 at 09:26 AM
+-- Generation Time: Apr 13, 2023 at 02:37 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -48,7 +48,7 @@ INSERT INTO `appointment` (`id`, `pname`, `age`, `email`, `phone`, `doctor`, `ad
 (2, 'test', 2, 'test.email.raj@gmail.com', '', 0, '2023-04-06', '15:21:00', 'pending'),
 (3, 'test', 5, 'test.email.raj@gmail.com', '01644836367', 2, '2023-04-01', '15:26:00', 'approved'),
 (4, 'test', 56, 'test.email.raj@gmail.com', '01644836367', 3, '2023-04-01', '15:28:00', 'approved'),
-(5, 'Service Names', 4, 'rahulsingha12@gmail.com', '01644836367', 0, '2023-03-18', '15:28:00', 'pending'),
+(5, 'Service Names', 4, 'rahulsingha12@gmail.com', '01644836367', 0, '2023-03-18', '15:28:00', 'approved'),
 (6, 'Service Names', 4, 'rahulsingha12@gmail.com', '01644836367', 0, '2023-03-18', '15:28:00', 'pending');
 
 -- --------------------------------------------------------
@@ -72,7 +72,7 @@ CREATE TABLE `const_dept` (
 
 INSERT INTO `const_dept` (`id`, `title`, `title_slug`, `description`, `const_des`, `cons_image`) VALUES
 (2, 'Heart Disease', 'heart-disease', 'ASPERIA HEALTH CARE Ltd. is renowned for its comprehensive and innovative approach to diagnosing all types of heart diseases. Our state-of-the-art facility is equipped with the latest machinery and technology, allowing us to conduct a full range of cardiac investigations and assessments with the highest accuracy. We are committed to providing the highest level of care to our patients, and we strive to remain at the forefront of cardiac diagnosis and treatment.', 'ASPERIA HEALTH CARE Ltd. provides consultation services in level-4 (OPD) through highly qualified and experienced Consultants, who carefully evaluate each patient. After diagnosing the patient’s condition, our consultants discuss available treatment options and recommend the most effective treatment.', 'admin/images/histo-md.png'),
-(3, 'Gastroenterology', 'gastroenterology', 'The Gastroenterology, Liver & Gallbladder department is staffed with highly trained medical professionals, including gastroenterologists, hepatologists, and skilled nurses and technicians. These specialists use state-of-the-art diagnostic tools and treatment options to provide the best possible care to their patients. The department is also equipped with advanced endoscopic equipment and imaging technology to help with accurate diagnosis and effective treatment of digestive and liver conditions.', 'ASPERIA HEALTH CARE Ltd. provides consultation services in level-4 (OPD) through highly qualified and experienced Consultants, who carefully evaluate each patient. After diagnosing the patient’s condition, our consultants discuss available treatment options and recommend the most effective treatment.', 'admin/images/mol.png');
+(3, 'Gastroenterology', 'gastroenterology', 'The Gastroenterology, Liver & Gallbladder department is staffed with highly trained medical professionals, including gastroenterologists, hepatologists, and skilled nurses and technicians. These specialists use state-of-the-art diagnostic tools and treatment options to provide the best possible care to their patients. The department is also equipped with advanced endoscopic equipment and imaging technology to help with accurate diagnosis and effective treatment of digestive and liver conditions.', 'ASPERIA HEALTH CARE Ltd. provides consultation services in level-4 (OPD) through highly qualified and experienced Consultants, who carefully evaluate each patient. After diagnosing the patient’s condition, our consultants discuss available treatment options and recommend the most effective treatment.', 'admin/images/mol-md.png');
 
 -- --------------------------------------------------------
 
@@ -95,10 +95,12 @@ CREATE TABLE `department` (
 --
 
 INSERT INTO `department` (`id`, `dname`, `short_des`, `description`, `image`, `header_image`, `ord`) VALUES
-(6, 'General Lab', 'A general lab in a hospital department is a facility that provides a wide range of diagnostic tests and services to assist in the diagnosis and treatment of various medical conditions. ', 'A general lab in a hospital department is a facility that provides a wide range of diagnostic tests and services to assist in the diagnosis and treatment of various medical conditions. The lab may be equipped with advanced equipment and instruments, including microscopes, centrifuges, spectrophotometers, and computerized analyzers.', 'admin/images/lab.png', 'admin/images/lab.jpg', 1),
+(6, 'General Lab-update', 'A general lab in a hospital department is a facility that provides a wide range of diagnostic tests and services to assist in the diagnosis and treatment of various medical conditions. ', 'A general lab in a hospital department is a facility that provides a wide range of diagnostic tests and services to assist in the diagnosis and treatment of various medical conditions. The lab may be equipped with advanced equipment and instruments, including microscopes, centrifuges, spectrophotometers, and computerized analyzers.', 'admin/images/lab.png', 'admin/images/lab.jpg', 1),
 (7, 'Oncology', 'Oncology is a medical specialty that focuses on the prevention, diagnosis, and treatment of cancer.', 'Oncology is a medical specialty that focuses on the prevention, diagnosis, and treatment of cancer. The Oncology department in a hospital is responsible for providing comprehensive care for patients with cancer, including chemotherapy, radiation therapy, surgery, and palliative care.', 'admin/images/oncoloy.png', 'admin/images/onco.jpg', 4),
 (8, 'Histopathology', 'Histopathology is the medical specialty that deals with the examination of tissues and cells under a microscope to diagnose diseases. ', 'Histopathology is the medical specialty that deals with the examination of tissues and cells under a microscope to diagnose diseases. In a hospital setting, the histopathology department is responsible for receiving and analyzing tissue samples from patients. The samples may be obtained from a variety of sources, including biopsies, surgical procedures, or autopsies.\r\n\r\nThe histopathology department plays a crucial role in the diagnosis and treatment of a wide range of diseases, including cancer', 'admin/images/histo.png', 'admin/images/histo.jpg', 2),
-(9, 'Molecular', 'A Molecular Hospital Department is a specialized medical department that focuses on the diagnosis and treatment of diseases at a molecular level', 'A Molecular Hospital Department is a specialized medical department that focuses on the diagnosis and treatment of diseases at a molecular level. This department utilizes advanced molecular technologies to understand the underlying genetic and molecular mechanisms of diseases and develop personalized treatments for patients. Molecular medicine is a rapidly evolving field that combines knowledge from multiple disciplines, including genetics, biochemistry, and medicine. The Molecular Hospital Depa', 'admin/images/mol.png', 'admin/images/lab.jpg', 3);
+(9, 'Molecular', 'A Molecular Hospital Department is a specialized medical department that focuses on the diagnosis and treatment of diseases at a molecular level', 'A Molecular Hospital Department is a specialized medical department that focuses on the diagnosis and treatment of diseases at a molecular level. This department utilizes advanced molecular technologies to understand the underlying genetic and molecular mechanisms of diseases and develop personalized treatments for patients. Molecular medicine is a rapidly evolving field that combines knowledge from multiple disciplines, including genetics, biochemistry, and medicine. The Molecular Hospital Depa', 'admin/images/mol.png', 'admin/images/lab.jpg', 3),
+(10, 'dummy', '<p>dummy</p>', '<p>dummy</p>', 'admin/images/screening.jpg', 'admin/images/pre.jpg', 7),
+(11, 'test', '<p>test</p>', '<p>test</p>', 'admin/images/councelling.jpg', 'admin/images/diagnosis.jpg', 6);
 
 -- --------------------------------------------------------
 
@@ -200,7 +202,8 @@ INSERT INTO `menu` (`id`, `head`, `menutext`, `link`, `menuorder`, `status`, `ac
 (5, 'Doctor', 'Department', 'dr_department', 32, 1, 1),
 (6, 'Doctor', 'Doctor', 'doctor', 33, 1, 1),
 (7, 'Appointment', 'appointments', 'appointments', 42, 1, 1),
-(8, 'Services', 'Consult Department', 'cons_dept', 24, 1, 1);
+(8, 'Services', 'Consult Department', 'cons_dept', 24, 1, 1),
+(9, 'Package', 'Add Package', 'package', 52, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -231,15 +234,17 @@ CREATE TABLE `package` (
   `image` varchar(100) NOT NULL,
   `icon` varchar(100) NOT NULL,
   `ord` int(11) NOT NULL,
-  `status` varchar(20) NOT NULL
+  `status` varchar(20) NOT NULL,
+  `v_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
 
 --
 -- Dumping data for table `package`
 --
 
-INSERT INTO `package` (`id`, `category`, `des`, `details`, `image`, `icon`, `ord`, `status`) VALUES
-(5, 'General Health Checkup', 'General health checkup package for all under 60 years old', '<p>Feeling more thirsty than usual</p>\r\n<p>Urinating often or urine volume is more than usual</p>\r\n<p>Hungry often and eat more than usual</p>\r\n<p>Losing weight without any reason</p>\r\n<p>Having slow-healing wound</p>\r\n<p>Feeling numbness, burning sensation, or tingling at in your extremities</p>', 'images/package/82528.jpg', '', 1, 'Active');
+INSERT INTO `package` (`id`, `category`, `des`, `details`, `image`, `icon`, `ord`, `status`, `v_date`) VALUES
+(5, 'General Health Checkup', 'General health checkup package for all under 60 years old', '<p>Feeling more thirsty than usual</p>\r\n<p>Urinating often or urine volume is more than usual</p>\r\n<p>Hungry often and eat more than usual</p>\r\n<p>Losing weight without any reason</p>\r\n<p>Having slow-healing wound</p>\r\n<p>Feeling numbness, burning sensation, or tingling at in your extremities</p>', 'images/package/82528.jpg', '', 1, 'Inactive', NULL),
+(6, 'Eid Health Checkup', 'Eid Health Checkup', '<p>CBC WITH ESR</p>\r\n<p>CREATININE WITH EGFR</p>\r\n<p>ALT (SGPT)-SERUM</p>\r\n<p>LIPID PROFILE SERUM</p>\r\n<p>RBS</p>\r\n<p>ECG</p>\r\n<p>TSH-SERUM</p>\r\n<p>URINE RME</p>\r\n<p>DOCTOR CONSULTATION</p>', 'images/package/70098.41.55 PM.jpeg', '', 2, 'Active', '2023-04-29');
 
 -- --------------------------------------------------------
 
@@ -474,7 +479,7 @@ ALTER TABLE `const_dept`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `dept`
@@ -492,7 +497,7 @@ ALTER TABLE `doctor`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `news`
@@ -504,7 +509,7 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `package`
 --
 ALTER TABLE `package`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `package_detail`

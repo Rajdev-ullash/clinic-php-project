@@ -401,7 +401,7 @@ include 'header.php';
                 <!--Services Three Single End-->
                 <?php
                             
-                            $query = "SELECT * FROM package ORDER BY ord ASC LIMIT 5";
+                            $query = "SELECT * FROM package where status = 'Active' ORDER BY ord ASC LIMIT 5";
                             $select_result = mysqli_query($connection, $query);
                             while($row = mysqli_fetch_array($select_result)){
                             ?>
@@ -409,7 +409,7 @@ include 'header.php';
                 <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="200ms">
                     <div class="services-three__single">
                         <div class="services-three__img">
-                            <img src="admin/<?php echo $row["image"]?>" alt="">
+                            <img src="admin/<?php echo $row["image"]?>" alt="" style="height:270px">
                             <div class="services-three__content">
                                 <h3 class="services-three__title"><a
                                         href="package-detail.php?id=<?php echo $row["id"]?>"><?php echo $row["category"]?></a>

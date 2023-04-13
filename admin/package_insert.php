@@ -81,10 +81,12 @@ if(!empty($_POST)){
 		$imagefile = $target_file;	
 	/* -----------end IMAGE UPLOAD ------------------*/
 
+	$v_date = mysqli_real_escape_string($connection, $_POST["v_date"]);
+
   
 
 
-	$query = "INSERT INTO package(category,des,details,image,ord,status) VALUES ('$title','$short_des','$details','$imagefile',$ord,'$status')";
+	$query = "INSERT INTO package(category,des,details,image,ord,status,v_date) VALUES ('$title','$short_des','$details','$imagefile',$ord,'$status','$v_date')";
 
 	if(mysqli_query($connection, $query)){
 		
