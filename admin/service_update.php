@@ -13,41 +13,94 @@ If(!empty($_POST)){
         $service_short_des = mysqli_real_escape_string($connection, $_POST["service_short_description"]);
 		$service_description = mysqli_real_escape_string($connection, $_POST["service_description"]);
 
-	 	//upload image
-        $target_dir = "admin/images/";
-        $target_file = $target_dir . basename($_FILES["simage"]["name"]);
-        $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+	 	if(empty($_FILES["simage"]["name"])){
+            //upload image
+            $target_dir = "admin/images/";
 
-        if (file_exists($target_file)) {
+            //rename image
+
+            //query to get image name
+            $query = "SELECT image FROM services WHERE sid = '$id'";
+            $result = mysqli_query($connection, $query);
+            $row = mysqli_fetch_assoc($result);
+            $image_name = $row['image'];
+            $this_id = $image_name;
+
+            $inquery = "UPDATE services SET image = '$this_id' WHERE sid = '$id'";
+            $inresult = mysqli_query($connection, $inquery);
+
+            $this_file = $target_dir . basename($_FILES["simage"]["name"]);
+            $p = strpos($this_file, '.');
+            $ext = substr($this_file, $p);
+            $my_file = $this_id.$ext;
+            //rename image ends
+            $target_file = $this_id;
             $uploadOk = 1;
-        }
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-        // Check file size
-        if ($_FILES["simage"]["size"] > 500000) {
-            //echo "Sorry, your file is too large.";
-            $uploadOk = 0;
-        }
+            if (file_exists($target_file)) {
+                $uploadOk = 1;
+            }
 
-        // Allow certain file formats
+            // Check file size
+            if ($_FILES["simage"]["size"] > 500000) {
+                //echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
 
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif" ) {
-            //echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            $uploadOk = 0;
-        }
 
-        // Check if $uploadOk is set to 0 by an error
-        if ($uploadOk == 0) {
-            //echo "Sorry, your file was not uploaded.";
+            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                //echo "Sorry, your file was not uploaded.";
             // if everything is ok, try to upload file
-        } else {
-            if (move_uploaded_file($_FILES["simage"]["tmp_name"], '../'.$target_file)) {
-                //echo "The file ". basename( $_FILES["dept_image"]["name"]). " has been uploaded.";
             } else {
-                //echo "Sorry, there was an error uploading your file.";
+                if (move_uploaded_file($_FILES["simage"]["tmp_name"], '../'.$target_file)) {
+                    //echo "The file ". basename( $_FILES["simage"]["name"]). " has been uploaded.";
+                } else {
+                    //echo "Sorry, there was an error uploading your file.";
+                }
             }
         }
+
+        if(!empty($_FILES["simage"]["name"])) {
+            $target_dir = "admin/images/";
+            $target_file = $target_dir . basename($_FILES["simage"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+            if (file_exists($target_file)) {
+                $uploadOk = 1;
+            }
+
+            // Check file size
+            if ($_FILES["simage"]["size"] > 500000) {
+                //echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+
+            // Allow certain file formats
+
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                && $imageFileType != "gif" ) {
+                //echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $uploadOk = 0;
+            }
+
+            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                //echo "Sorry, your file was not uploaded.";
+                // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($_FILES["simage"]["tmp_name"], '../'.$target_file)) {
+                    //echo "The file ". basename( $_FILES["dept_image"]["name"]). " has been uploaded.";
+                } else {
+                    //echo "Sorry, there was an error uploading your file.";
+                }
+            }
+        }
+        
+        
+        
 
 		$service_image_alt = mysqli_real_escape_string($connection, $_POST["service_image_alt"]);
 		$service_keywords = mysqli_real_escape_string($connection, $_POST["service_keyword"]);

@@ -15,7 +15,7 @@ while ($row = mysqli_fetch_array($result)) {
   <td>' . $row["const_des"] . '</td>
   <td><img src="../'.$row['cons_image'].'" width="50" height="50" /></td>
   <td><button type="button" data-toggle="modal" data-target="#modal-item' . $row["id"] . '" class="btn btn-warning btn-xs update">Update</button>
-  <button type="button" data-toggle="modal" data-target="#modal-item2' . $row["id"] . '" class="btn btn-danger btn-xs delete">Delete</button></td>
+  <button type="button" data-toggle="modal" data-target="#modal-item2'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button></td>
  </tr>
 
  <div class="modal fade" id="modal-item' . $row["id"] . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -50,25 +50,27 @@ while ($row = mysqli_fetch_array($result)) {
    </div>
   </div>
   </div>
-  <div class="modal fade" id="modal-item2' . $row["id"] . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+
+  <div class="modal fade" id="modal-item2'.$row["id"].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
    <div class="modal-content">
     <div class="modal-header">
      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-     <h4 class="modal-title" id="myModalLabel">Delete Consultancy Department</h4>
+     <h4 class="modal-title" id="myModalLabel">Delete Department</h4>
     </div>
     <div class="modal-body">
-    <h5 class="modal-title" id="myModalLabel">Are you sure want to delete ' . $row["title"] . ' ?</h4>
-     <div class="modal-footer">
-     <form method="post" id="delete_depart_update_form' . $row["id"] . '" enctype="multipart/form-data">
-     <button type="button" onclick="delete_depart_record(' . $row['id'] . ')" name="delete" id="' . $row["id"] . '" class="btn btn-danger btn-xs delete">Delete</button>
-     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-     </form>    
-     </div>          
+    <p>Are You Sure want to Delete '.$row["title"].'</p>
+     <form method="post" id="insert_depart_delete_form'.$row["id"].'" enctype="multipart/form-data">
+      
+        <button type="button" onclick="delete_depart_record('.$row['id'].')" name="delete" id="'.$row["id"].'" class="btn btn-success btn-xs update">Delete</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+        </form>
+
     </div>
-   </div>
-  </div>
-  </div>
+    </div>
+    </div>
+    </div>
  ';
     $i++;
 }
@@ -341,12 +343,15 @@ function update_depart_record(id) {
     });
 }
 
+
 function delete_depart_record(id) {
     var id = id;
     console.log(id);
-    var form = $('#delete_depart_update_form' + id)[0];
+
+    var form = $('#insert_depart_delete_form' + id)[0];
     var data = new FormData(form);
-    data.append('dept_id', id);
+    data.append('cons_dep_id', id);
+
     $.ajax({
         type: "POST",
         url: "cons_dept_delete.php",
@@ -356,8 +361,10 @@ function delete_depart_record(id) {
         cache: false,
         timeout: 600000,
         success: function(data) {
+            // console.log(data);
+
             // hide modal
-            $('#modal-item').modal('hide');
+            $('#modal-item2').modal('hide');
             alertify.success('Deleted');
             setTimeout(function() {
                 window.location.reload();

@@ -24,7 +24,7 @@ while($row = mysqli_fetch_array($result))
     </td>
     <td>'.$row["ord"].'</td>
     <td><button type="button" data-toggle="modal" data-target="#modal-item'.$row["sid"].'" class="btn btn-warning btn-xs update">Update</button>
-  <button type="button" name="delete" id="'.$row["sid"].'" class="btn btn-danger btn-xs delete">Delete</button></td>
+  <button type="button"data-toggle="modal" data-target="#modal-item2'.$row["sid"].'" class="btn btn-danger btn-xs delete">Delete</button></td></td>
     </tr>
 
     <div class="modal fade" id="modal-item'.$row["sid"].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -95,6 +95,26 @@ while($row = mysqli_fetch_array($result))
       </div>
     </div>
   </div>
+  <div class="modal fade" id="modal-item2'.$row["sid"].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <div class="modal-header">
+     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+     <h4 class="modal-title" id="myModalLabel">Delete Department</h4>
+    </div>
+    <div class="modal-body">
+    <p>Are You Sure want to Delete '.$row["sname"].'</p>
+     <form method="post" id="insert_depart_delete_form'.$row["sid"].'" enctype="multipart/form-data">
+      
+        <button type="button" onclick="delete_depart_record('.$row['sid'].')" name="delete" id="'.$row["sid"].'" class="btn btn-success btn-xs update">Delete</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+        </form>
+
+    </div>
+    </div>
+    </div>
+    </div>
 
  
  ';
@@ -439,6 +459,39 @@ function deletem(id) {
                 //setTimeout(function(){location.reload()},1000);
             }
 
+        }
+    });
+}
+
+function delete_depart_record(id) {
+    var id = id;
+    console.log(id);
+
+    var form = $('#insert_depart_delete_form' + id)[0];
+    var data = new FormData(form);
+    data.append('sid', id);
+
+    $.ajax({
+        type: "POST",
+        url: "service_delete.php",
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function(data) {
+            // console.log(data);
+
+            // hide modal
+            $('#modal-item2').modal('hide');
+            alertify.success('Deleted');
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
+        },
+        error: function(e) {
+            console.log(e);
+            alertify.error('Error');
         }
     });
 }

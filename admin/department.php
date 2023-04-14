@@ -20,7 +20,7 @@ while($row = mysqli_fetch_array($result))
   <td><button type="button" data-toggle="modal" data-target="#modal-item'.$row["id"].'" class="btn btn-warning btn-xs update">Update</button>
 
   
-  <button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button></td>
+  <button type="button"data-toggle="modal" data-target="#modal-item2'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button></td>
  </tr>
 
  <div class="modal fade" id="modal-item'.$row["id"].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -61,7 +61,28 @@ while($row = mysqli_fetch_array($result))
     </div>
    </div>
   </div>
-  </div>
+</div>
+
+<div class="modal fade" id="modal-item2'.$row["id"].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <div class="modal-header">
+     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+     <h4 class="modal-title" id="myModalLabel">Delete Department</h4>
+    </div>
+    <div class="modal-body">
+    <p>Are You Sure want to Delete '.$row["dname"].'</p>
+     <form method="post" id="insert_depart_delete_form'.$row["id"].'" enctype="multipart/form-data">
+      
+        <button type="button" onclick="delete_depart_record('.$row['id'].')" name="delete" id="'.$row["id"].'" class="btn btn-success btn-xs update">Delete</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+        </form>
+
+    </div>
+    </div>
+    </div>
+    </div>
  ';
  $i++;
 }
@@ -363,6 +384,7 @@ function update_depart_record(id) {
         cache: false,
         timeout: 600000,
         success: function(data) {
+            // console.log(data);
 
             // hide modal
             $('#modal-item').modal('hide');
@@ -413,21 +435,35 @@ function editItem(id) {
     sentDataForEdit();
 }
 
-function deletem(id) {
-    var data = {
-        "id": id
-    }
+function delete_depart_record(id) {
+    var id = id;
+    console.log(id);
+
+    var form = $('#insert_depart_delete_form' + id)[0];
+    var data = new FormData(form);
+    data.append('dept_id', id);
+
     $.ajax({
-
-        method: "post",
-        url: "solution_delete.php",
+        type: "POST",
+        url: "department_delete.php",
         data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
         success: function(data) {
-            if (data == "1") {
-                alertify.success('deleted');
-                //setTimeout(function(){location.reload()},1000);
-            }
+            // console.log(data);
 
+            // hide modal
+            $('#modal-item2').modal('hide');
+            alertify.success('Deleted');
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
+        },
+        error: function(e) {
+            console.log(e);
+            alertify.error('Error');
         }
     });
 }
